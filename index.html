@@ -1,0 +1,558 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fortune's Weave – Rekrutierungs-Chronik</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0b1020; --bg2:#141b31; --panel:#161e36; --panel2:#1c2542;
+  --gold:#d4af6a; --gold-dim:#8c7344; --ink:#ece3cf; --muted:#9a93a8;
+  --line:rgba(212,175,106,.22);
+  --cai:#e0573c; --dietrich:#4f8fe6; --theodora:#b37be0; --leda:#3fbf9a;
+}
+*{box-sizing:border-box}
+html{background:var(--bg)}
+body{
+  margin:0; color:var(--ink);
+  font:500 17px/1.35 "Cormorant Garamond", Georgia, serif;
+  background:
+    radial-gradient(1200px 600px at 50% -200px, rgba(212,175,106,.18), transparent 70%),
+    radial-gradient(800px 500px at 100% 30%, rgba(79,143,230,.08), transparent 70%),
+    radial-gradient(800px 500px at 0% 70%, rgba(224,87,60,.07), transparent 70%),
+    var(--bg);
+  min-height:100vh;
+}
+.wrap{max-width:1100px; margin:0 auto; padding:28px 16px 60px}
+header{text-align:center; margin-bottom:22px}
+.eyebrow{font:700 12px "Cinzel",serif; letter-spacing:.35em; color:var(--gold-dim); text-transform:uppercase}
+h1{
+  font:700 clamp(26px,5vw,44px)/1.1 "Cinzel",serif; margin:6px 0 4px; letter-spacing:.04em;
+  background:linear-gradient(180deg,#f6e3b4,#c79a4e 60%,#8a6a33); -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.sub{color:var(--muted); font-style:italic}
+.ornament{display:flex; align-items:center; gap:12px; justify-content:center; margin:14px auto 0; max-width:420px; color:var(--gold)}
+.ornament::before,.ornament::after{content:""; flex:1; height:1px; background:linear-gradient(90deg,transparent,var(--gold))}
+.ornament::after{background:linear-gradient(270deg,transparent,var(--gold))}
+
+/* toolbar */
+.toolbar{display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:space-between; margin:18px 0 14px}
+.seg{display:inline-flex; border:1px solid var(--line); border-radius:999px; overflow:hidden; background:rgba(255,255,255,.02)}
+.seg button{all:unset; cursor:pointer; padding:7px 14px; font:600 13px "Cinzel",serif; letter-spacing:.06em; color:var(--muted)}
+.seg button[aria-pressed=true]{background:linear-gradient(180deg,rgba(212,175,106,.28),rgba(212,175,106,.12)); color:var(--ink)}
+input[type=search]{
+  flex:1; min-width:160px; max-width:280px; padding:8px 14px; border-radius:999px; border:1px solid var(--line);
+  background:rgba(255,255,255,.03); color:var(--ink); font:inherit; outline:none;
+}
+input[type=search]:focus{border-color:var(--gold)}
+.actions{display:flex; gap:6px}
+.btn{all:unset; cursor:pointer; padding:7px 12px; border:1px solid var(--line); border-radius:8px; font:600 12px "Cinzel",serif; letter-spacing:.05em; color:var(--gold)}
+.btn:hover{border-color:var(--gold); background:rgba(212,175,106,.08)}
+
+/* matrix */
+.matrix{
+  border:1px solid var(--line); border-radius:14px; overflow:hidden;
+  background:linear-gradient(180deg,rgba(28,37,66,.9),rgba(20,27,49,.9));
+  box-shadow:0 20px 60px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.04);
+}
+table{width:100%; border-collapse:collapse; table-layout:fixed}
+col.c-name{width:34%}
+thead th{
+  position:sticky; top:0; z-index:2; padding:14px 6px 12px; vertical-align:bottom;
+  background:linear-gradient(180deg,#1f2949,#182039); border-bottom:1px solid var(--gold-dim);
+}
+thead th:first-child{text-align:left; padding-left:18px; font:700 13px "Cinzel",serif; letter-spacing:.2em; color:var(--gold-dim)}
+.lord{display:flex; flex-direction:column; align-items:center; gap:6px; --c:var(--gold)}
+.lord .crest{
+  width:58px; height:58px; border-radius:50%; overflow:hidden; position:relative;
+  border:2px solid var(--c); box-shadow:0 0 0 3px rgba(0,0,0,.4), 0 0 18px color-mix(in srgb,var(--c) 45%,transparent);
+  background:radial-gradient(circle at 50% 30%, color-mix(in srgb,var(--c) 45%,#000), #0b1020);
+}
+.lord .crest img{width:100%; height:100%; object-fit:cover; object-position:50% 12%}
+.lord .lname{font:700 13px "Cinzel",serif; letter-spacing:.08em; color:var(--c)}
+.lord .count{font:600 12px "Cinzel",serif; color:var(--muted)}
+.bar{width:78%; height:5px; border-radius:3px; background:rgba(255,255,255,.08); overflow:hidden}
+.bar i{display:block; height:100%; width:0; background:linear-gradient(90deg,color-mix(in srgb,var(--c) 60%,#000),var(--c)); transition:width .35s}
+
+tr.group td{
+  padding:16px 18px 8px; font:700 12px "Cinzel",serif; letter-spacing:.25em; text-transform:uppercase; color:var(--gold);
+  background:linear-gradient(90deg,rgba(212,175,106,.12),transparent 70%);
+  border-top:1px solid var(--line);
+}
+tr.group td small{font:italic 500 14px "Cormorant Garamond",serif; letter-spacing:0; text-transform:none; color:var(--muted); margin-left:8px}
+tbody tr.row{border-top:1px solid rgba(255,255,255,.05); transition:background .2s}
+tbody tr.row:hover{background:rgba(212,175,106,.05)}
+tbody tr.row.complete .who .nm{color:var(--gold)}
+td{padding:6px; text-align:center; vertical-align:middle}
+td.who{text-align:left; padding:7px 10px 7px 14px}
+.who-in{display:flex; align-items:center; gap:12px; cursor:pointer}
+.pt{
+  flex:none; width:46px; height:46px; border-radius:50%; overflow:hidden;
+  border:1.5px solid var(--gold-dim); background:radial-gradient(circle at 50% 35%,#2a3560,#121830);
+  display:grid; place-items:center; font:700 15px "Cinzel",serif; color:var(--gold);
+}
+.pt img{width:100%; height:100%; object-fit:cover; object-position:50% 10%}
+.complete .pt{border-color:var(--gold); box-shadow:0 0 12px rgba(212,175,106,.5)}
+.nm{font:600 19px "Cormorant Garamond",serif; letter-spacing:.01em}
+.nm .star{color:var(--gold); font-size:13px; margin-left:6px; opacity:0}
+.complete .nm .star{opacity:1}
+.hint{display:block; font-size:13px; color:var(--muted); font-style:italic}
+
+.cell{
+  all:unset; cursor:pointer; width:100%; min-height:52px; border-radius:10px;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; --c:var(--gold);
+  transition:background .2s, transform .1s;
+}
+.cell:hover{background:color-mix(in srgb,var(--c) 10%,transparent)}
+.cell:active{transform:scale(.95)}
+.cell:focus-visible{outline:2px solid var(--c); outline-offset:-2px}
+.gem{
+  width:22px; height:22px; transform:rotate(45deg); border:2px solid color-mix(in srgb,var(--c) 70%,#fff 0%);
+  border-radius:4px; display:grid; place-items:center; transition:all .25s;
+  background:rgba(0,0,0,.25);
+}
+.gem svg{transform:rotate(-45deg); width:14px; height:14px; opacity:0; transition:opacity .2s}
+.cell.on .gem{
+  background:linear-gradient(135deg,color-mix(in srgb,var(--c) 70%,#fff),var(--c) 50%,color-mix(in srgb,var(--c) 60%,#000));
+  box-shadow:0 0 14px color-mix(in srgb,var(--c) 70%,transparent);
+}
+.cell.on .gem svg{opacity:1}
+.req{font:500 13px/1.2 "Cormorant Garamond",serif; color:var(--muted); max-width:150px}
+.tags{display:flex; gap:6px; justify-content:center}
+.tag{
+  display:inline-flex; align-items:center; gap:3px; padding:1px 7px 1px 5px; border-radius:999px;
+  font:700 11px "Cinzel",serif; color:var(--ink); background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.08);
+}
+.tag svg{width:11px; height:11px; color:var(--gold)}
+.tag:first-child svg{color:#e57b8c}
+.cell.on .req{color:color-mix(in srgb,var(--c) 60%,var(--ink))}
+.cell.auto .req{color:var(--gold); font-style:italic}
+.na{
+  min-height:52px; border-radius:10px; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:2px;
+  background:repeating-linear-gradient(135deg,rgba(255,255,255,.035) 0 6px,transparent 6px 12px);
+  color:rgba(236,227,207,.28); font:600 11px "Cinzel",serif; letter-spacing:.1em;
+}
+.na b{font-size:16px; font-weight:500; line-height:1}
+
+tr.detail td{padding:0 14px 12px 72px; text-align:left}
+.detail-box{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:10px 18px; font-size:15px; color:var(--ink)}
+.detail-box b{font:700 12px "Cinzel",serif; letter-spacing:.08em}
+.detail-box ul{margin:4px 0 0; padding-left:18px}
+.detail-box li{margin:1px 0}
+.detail-box li::marker{color:var(--gold-dim)}
+.detail-box p{margin:4px 0 0; color:var(--muted)}
+
+.legend{display:flex; flex-wrap:wrap; gap:18px; justify-content:center; margin:18px 0 0; color:var(--muted); font-size:15px}
+.legend span{display:inline-flex; align-items:center; gap:8px}
+.legend .gem{width:14px; height:14px; border-width:1.5px; --c:var(--gold)}
+.legend .on{background:var(--gold)}
+.legend .hatch{width:22px; height:14px; border-radius:3px; background:repeating-linear-gradient(135deg,rgba(255,255,255,.12) 0 4px,transparent 4px 8px)}
+footer{margin-top:22px; text-align:center; font-size:14px; color:var(--muted); font-style:italic}
+footer a{color:var(--gold-dim)}
+.hidden{display:none !important}
+
+@media (max-width:700px){
+  body{font-size:16px}
+  col.c-name{width:40%}
+  .req{display:none}
+  .tags{flex-direction:column; gap:2px; align-items:center}
+  .tag{font-size:9px; padding:0 5px 0 3px}
+  thead th{padding:10px 2px 10px}
+  .lord .crest{width:36px; height:36px; box-shadow:0 0 0 2px rgba(0,0,0,.4)}
+  .lord .lname{font-size:9px; letter-spacing:0}
+  .lord .count{font-size:10px}
+  thead th:first-child{font-size:10px; padding-left:10px; letter-spacing:.1em}
+  .pt{width:34px; height:34px; font-size:12px}
+  .who-in{gap:8px}
+  td.who{padding-left:8px}
+  .nm{font-size:16px}
+  .hint{font-size:12px}
+  .cell,.na{min-height:44px}
+  tr.detail td{padding-left:10px}
+  .toolbar{justify-content:center}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Fire Emblem · Fortune's Weave</div>
+    <h1>Rekrutierungs-Chronik</h1>
+    <div class="sub">Wer folgt welchem Flammenlord? Tippe auf eine Raute zum Abhaken – auf einen Namen für die Bedingungen.</div>
+    <div class="ornament">✦</div>
+  </header>
+
+  <div class="toolbar">
+    <div class="seg" role="group" aria-label="Filter">
+      <button data-f="all" aria-pressed="true">Alle</button>
+      <button data-f="open" aria-pressed="false">Offen</button>
+      <button data-f="done" aria-pressed="false">Erledigt</button>
+    </div>
+    <input type="search" id="q" placeholder="Name suchen …">
+    <div class="actions">
+      <button class="btn" id="exp" title="Fortschritt als Datei sichern">Sichern</button>
+      <button class="btn" id="imp" title="Gesicherte Datei laden">Laden</button>
+      <button class="btn" id="rst" title="Alle Häkchen entfernen">Reset</button>
+      <input type="file" id="file" accept=".json,application/json" class="hidden">
+    </div>
+  </div>
+
+  <div class="matrix">
+    <table>
+      <colgroup><col class="c-name"><col><col><col><col></colgroup>
+      <thead><tr id="head"><th>Charakter</th></tr></thead>
+      <tbody id="body"></tbody>
+    </table>
+  </div>
+
+  <div class="legend">
+    <span><i class="gem"></i> offen</span>
+    <span><i class="gem on"></i> rekrutiert</span>
+    <span><i class="hatch"></i> auf diesem Pfad nicht rekrutierbar</span>
+    <span><span class="tag"><svg viewBox="0 0 16 16" style="color:#e57b8c"><path d="M8 14s-5.5-3.4-5.5-7.2A3 3 0 0 1 8 4.6a3 3 0 0 1 5.5 2.2C13.5 10.6 8 14 8 14z" fill="currentColor"/></svg>3</span> nötige Unterstützungs-Stufe (Support) mit dem Lord</span>
+    <span><span class="tag"><svg viewBox="0 0 16 16"><path d="M2 12h12l1-7-4 3-3-5-3 5-4-3z" fill="currentColor"/></svg>9</span> nötiger Ruhm (Renown) des Lords</span>
+  </div>
+  <footer>
+    Fortschritt wird automatisch in diesem Browser gespeichert. Daten: Rekrutierungs-Guides von RPG Site &amp; Keen Gamer · Bilder: <a href="https://fireemblemwiki.org/" target="_blank" rel="noopener">Fire Emblem Wiki</a>
+  </footer>
+</div>
+
+<script>
+const LORDS = [
+  {id:"cai",      name:"Cai",      color:"var(--cai)"},
+  {id:"dietrich", name:"Dietrich", color:"var(--dietrich)"},
+  {id:"theodora", name:"Theodora", color:"var(--theodora)"},
+  {id:"leda",     name:"Leda",     color:"var(--leda)"},
+];
+// [Name, Gruppe, Cai, Dietrich, Theodora, Leda]  – null = nicht rekrutierbar, "Auto…" = tritt automatisch bei
+const A = "Auto";
+const DATA = [
+ ["Tialla",1, A, "S3 · R9 · Cai-Paralog · 3000 G", "S3 · R10 · Cai-Paralog · 3000 G", "S3 · R8 · Cai-Paralog · 3000 G"],
+ ["Peter",1, A, "S3 · R8 · Quest", "S3 · R7 · Quest", "S3 · R10 · Quest"],
+ ["Ultand",1, "Auto (Kap. 6)", "S3 · R5 · Quest", "S3 · R6 · Quest", "S3 · R8 · Quest"],
+ ["Guzran",1, "Auto (Tutorial)", "S3 · R8", "S3 · R8", "S1 · R3"],
+ ["Fabio",1, null, A, null, "S3 · R9 · Dietrich-Paralog + „They Have Lost“ · passendes Item"],
+ ["Esmeralda",1, "S3 · R7 · Quest", A, "S3 · R9 · Quest", "S3 · R6 · Quest"],
+ ["Mikaela",1, "S3 · R5 · 3000 G", A, "S3 · R8 · 3000 G", "S3 · R6 · 3000 G"],
+ ["Yang Jie",1, "S2 · R3 · Fragen: Cheese, Moon, Potatoes", "Auto (Tutorial)", "S3 · R9 · gleiche Antworten", "S3 · R8 · gleiche Antworten"],
+ ["Bonaventure",1, null, null, A, null],
+ ["Tobias",1, null, null, A, null],
+ ["Lilian",1, "S2 · R8 · 5000 G", "S2 · R8 · 5000 G", A, "S2 · R7 · 5000 G"],
+ ["Lysander",1, "S3 · R8 · 5× Iron Spear", "S3 · R6 · 5× Iron Spear", A, "S3 · R7 · 5× Iron Spear"],
+ ["Sofia",1, "S3 · R9", "S3 · R9", "Auto (Tutorial)", "S3 · R7"],
+ ["Buccar",1, null, "S3 · R8 · Leda-Paralog", "S3 · R8 · Leda-Paralog", A],
+ ["Sirocco",1, "S3 · R9 · Quest", "S3 · R9 · Quest", "S1 · R5 · Quest", A],
+ ["Olympia",1, "S3 · R8 · 3 Quests", "S3 · R6 · 3 Quests", "S3 · R9 · 3 Quests", A],
+ ["Mu",1, "S3 · R9 · 3× Glirmosa", "S3 · R7 · 3× Glirmosa", "S3 · R9 · 3× Glirmosa", A],
+ ["Catania",1, "S3 · R10", "S1 · R8", "S3 · R7", "Auto (Tutorial)"],
+ ["Gaitz",1, null, "S3 · R10 · Bertrand-Paralog + „They Have Lost“", null, null],
+ ["Jester",1, "S3 · R10 · 3 Quests", "S3 · R6 · 3 Quests", "S3 · R9 · 3 Quests", "S3 · R10 · 3 Quests"],
+ ["Goliath",1, "S3 · R7 · 3× Giant's Meat", "S3 · R6 · 3× Giant's Meat", "S3 · R9 · 3× Giant's Meat", "S3 · R10 · 3× Giant's Meat"],
+ ["Dante",1, "S3 · R10 · 8000 G", "S2 · R8 · 8000 G", "S3 · R6 · 8000 G", "S3 · R10 · 8000 G"],
+ ["Diego",1, "S3 · R10 · Orchel-Paralog", "S3 · R9 · Orchel-Paralog", "S2 · R8 · Orchel-Paralog", "S3 · R8 · Orchel-Paralog"],
+ ["Loretta",1, "S3 · R7 · 3× Iron Sword", "S3 · R9 · 3× Iron Sword", "S3 · R5 · 3× Iron Sword", "S3 · R5 · 3× Iron Sword"],
+ ["Seteth",1, "S3 · R6 · Quest", null, "S3 · R6 · Quest", "S3 · R10 · Quest"],
+ ["Ninae",1, "S3 · R6 · 1× Paradise Fish", "S3 · R8 · 1× Paradise Fish", "S3 · R6 · 1× Paradise Fish", "S3 · R6 · 1× Paradise Fish"],
+ ["Ursula",1, "S3 · R10 · Talimun-Paralog · 3× „Ja“", "S3 · R7 · Talimun-Paralog · 3× „Ja“", "S3 · R9 · Talimun-Paralog · 3× „Ja“", null],
+ ["Ludia",1, "S3 · R9 · Quest", "S3 · R9 · Quest", "S3 · R7 · Quest", "S3 · R7 · Quest"],
+ ["Simon",1, "S3 · R8 · Münzwurf: Zahl", "S3 · R7 · Münzwurf: Zahl", "S3 · R7 · Münzwurf: Zahl", "S3 · R6 · Münzwurf: Zahl"],
+ ["Fianna",1, "S3 · R8 · 3000 G", "S3 · R7 · 3000 G", "S3 · R9 · 3000 G", "S3 · R5 · 3000 G"],
+ ["Nezha",1, "S3 · R6 · 3× Sandworm Meat", "S3 · R10 · 3× Sandworm Meat", "S2 · R6 · 3× Sandworm Meat", "S3 · R9 · 3× Sandworm Meat"],
+ ["Sha Lan",1, null, "S3 · R10 · Anatolia-Paralog · Fragen: Saramis, Da Mina, Grounded Ship", null, "S3 · R8 · Anatolia-Paralog · gleiche Antworten"],
+ ["Dadao",1, "S3 · R7 · 2× Kothar Gar", "S3 · R10 · 2× Kothar Gar", "S2 · R5 · 2× Kothar Gar", "S2 · R5 · 2× Kothar Gar"],
+ ["Halvin",1, "S3 · R9 · 10× Dates", "S3 · R9 · 10× Dates", "S3 · R7 · 10× Dates", "S3 · R7 · 10× Dates"],
+ ["Io",1, "S3 · R10 · 4000 G", "S2 · R3 · 800 G", "S3 · R10 · 4000 G", "S1 · R6 · 1500 G"],
+ ["Peppe",1, "S1 · R9 · Bertrand-Paralog", "S3 · R8 · Bertrand-Paralog", "S2 · R7 · Bertrand-Paralog", null],
+ ["Noctula",1, "S1 · R4", "S1 · R6", "S1 · R3", "S3 · R8"],
+ ["Nydine",1, "S1 · R6 · 2× Bronze Axe", "S2 · R5 · 2× Bronze Axe", "S3 · R5 · 3× Iron Axe", "S3 · R10 · 3× Iron Axe"],
+ ["Zarcone",1, "S3 · R8 · verhandeln", "S3 · R7 · verhandeln", "S1 · R4 · verhandeln", "S2 · R5 · verhandeln"],
+ ["Majide",1, "S2 · R5 · 3× Frage beantworten", "S3 · R8 · 3× Frage beantworten", "S3 · R8 · 3× Frage beantworten", "S3 · R9 · 3× Frage beantworten"],
+ ["Benditz",1, "S3 · R9", "S2 · R7", "S1 · R8", "S3 · R7"],
+ ["Inyoni",1, "S3 · R8 · 6000 G", "S3 · R8 · 6000 G", "S1 · R9 · 4000 G", "S1 · R7 · 3000 G"],
+ ["Jasmine",1, "S1 · R8 · 2000 G", "S3 · R9 · 5000 G", "S3 · R8 · 5000 G", "S2 · R4 · 500 G"],
+ ["Alexandra",1, "S2 · R7", "S3 · R8", "S1 · R6", "S3 · R10"],
+ ["Nuzzuo",1, "S2 · R6 · 3× Iron Bow", "S1 · R9 · 2× Iron Bow", "S1 · R6 · 3× Iron Bow", "S3 · R9 · 3× Iron Bow"],
+ ["Kiroc",1, "S3 · R8 · 8× Pure Water", "S1 · R4 · 3× Pure Water", "S3 · R10 · 8× Pure Water", "S1 · R4 · 3× Pure Water"],
+ // Part II / III – unabhängig vom Pfad
+ ["Hong Hua",2, "Auto (Prolog / Part III)"],
+ ["Troy",2, "Auto (Prolog / Part III)"],
+ ["Bertrand",2, "Part II Gast · Part III fest (Paralog in Part I erledigen)"],
+ ["Creek",2, "Part II Kap. 2 besiegen · Nebenquest „My Late Sister's Accessory“ in Part I"],
+ ["Nathan",2, "Part II Kap. 3 · Creek muss den letzten Schlag ausführen"],
+ ["Orchel",2, "Auto · Part III, 1. Abschnitt (Paralog in Part I erledigen)"],
+ ["Talimun",2, "Auto · Part III, 1. Abschnitt (Paralog in Part I erledigen)"],
+ ["Anatolia",2, "Auto · Part III, 1. Abschnitt (Paralog in Part I erledigen)"],
+ ["Centurio",2, "Part III, 2. Abschnitt · Quest „Rescue Centurio“"],
+ ["Aswan",2, "Auto · Part III, 5. Abschnitt (darf in Part II Kap. 3 nicht sterben)"],
+ ["Tahonia",2, "Auto · Part III, 5. Abschnitt (darf in Part II Kap. 3 nicht sterben)"],
+ ["Klapka",2, "Auto · Part III, 6. Abschnitt (darf in Part III, 5. Abschnitt nicht sterben)"],
+].map(r => {
+  const name = r[0];
+  // Part II/III: eine Bedingung, auf allen vier Pfaden möglich
+  const req = r[1] === 2 ? [r[2], r[2], r[2], r[2]] : r.slice(2, 6);
+  return {name, group:r[1], req};
+});
+
+const IMG = {
+"Alexandra": "https://cdn.fireemblemwiki.org/thumb/a/ae/Portrait_alexandra_fe18.png/160px-Portrait_alexandra_fe18.png",
+"Anatolia": "https://cdn.fireemblemwiki.org/thumb/6/68/Portrait_anatolia_fe18.png/160px-Portrait_anatolia_fe18.png",
+"Aswan": "https://cdn.fireemblemwiki.org/thumb/0/02/Portrait_aswan_fe18.png/160px-Portrait_aswan_fe18.png",
+"Benditz": "https://cdn.fireemblemwiki.org/thumb/3/38/Portrait_benditz_fe18.png/160px-Portrait_benditz_fe18.png",
+"Bertrand": "https://cdn.fireemblemwiki.org/thumb/2/29/Portrait_bertrand_fe18.png/160px-Portrait_bertrand_fe18.png",
+"Bonaventure": "https://cdn.fireemblemwiki.org/thumb/b/bf/Portrait_bonaventure_fe18.png/160px-Portrait_bonaventure_fe18.png",
+"Buccar": "https://cdn.fireemblemwiki.org/thumb/3/30/Portrait_buccar_fe18.png/160px-Portrait_buccar_fe18.png",
+"Catania": "https://cdn.fireemblemwiki.org/thumb/e/ed/Portrait_catania_fe18.png/160px-Portrait_catania_fe18.png",
+"Centurio": "https://cdn.fireemblemwiki.org/thumb/6/67/Portrait_centurio_fe18.png/160px-Portrait_centurio_fe18.png",
+"Creek": "https://cdn.fireemblemwiki.org/thumb/0/08/Portrait_creek_fe18.png/160px-Portrait_creek_fe18.png",
+"Dadao": "https://cdn.fireemblemwiki.org/thumb/b/bf/Portrait_dadao_fe18.png/160px-Portrait_dadao_fe18.png",
+"Dante": "https://cdn.fireemblemwiki.org/thumb/2/2c/Portrait_dante_fe18.png/160px-Portrait_dante_fe18.png",
+"Diego": "https://cdn.fireemblemwiki.org/thumb/b/b5/Portrait_diego_fe18.png/160px-Portrait_diego_fe18.png",
+"Esmeralda": "https://cdn.fireemblemwiki.org/thumb/4/4f/Portrait_esmeralda_fe18.png/160px-Portrait_esmeralda_fe18.png",
+"Fabio": "https://cdn.fireemblemwiki.org/thumb/d/df/Portrait_fabio_fe18.png/160px-Portrait_fabio_fe18.png",
+"Fianna": "https://cdn.fireemblemwiki.org/thumb/f/fe/Portrait_fianna_fe18.png/160px-Portrait_fianna_fe18.png",
+"Gaitz": "https://cdn.fireemblemwiki.org/thumb/8/87/Portrait_gaitz_fe18.png/160px-Portrait_gaitz_fe18.png",
+"Goliath": "https://cdn.fireemblemwiki.org/thumb/6/62/Portrait_goliath_fe18.png/160px-Portrait_goliath_fe18.png",
+"Guzran": "https://cdn.fireemblemwiki.org/thumb/2/2b/Portrait_guzran_fe18.png/160px-Portrait_guzran_fe18.png",
+"Halvin": "https://cdn.fireemblemwiki.org/thumb/e/e4/Portrait_halvin_fe18.png/160px-Portrait_halvin_fe18.png",
+"Hong Hua": "https://cdn.fireemblemwiki.org/thumb/a/a7/Portrait_hong_hua_fe18.png/160px-Portrait_hong_hua_fe18.png",
+"Inyoni": "https://cdn.fireemblemwiki.org/thumb/b/b3/Portrait_inyoni_fe18.png/160px-Portrait_inyoni_fe18.png",
+"Io": "https://cdn.fireemblemwiki.org/thumb/e/e7/Portrait_io_fe18.png/160px-Portrait_io_fe18.png",
+"Jasmine": "https://cdn.fireemblemwiki.org/thumb/3/3a/Portrait_jasmine_fe18.png/160px-Portrait_jasmine_fe18.png",
+"Jester": "https://cdn.fireemblemwiki.org/thumb/e/e2/Portrait_jester_fe18.png/160px-Portrait_jester_fe18.png",
+"Kiroc": "https://cdn.fireemblemwiki.org/thumb/6/63/Portrait_kiroc_fe18.png/160px-Portrait_kiroc_fe18.png",
+"Klapka": "https://cdn.fireemblemwiki.org/thumb/6/68/Portrait_klapka_fe18.png/160px-Portrait_klapka_fe18.png",
+"Lilian": "https://cdn.fireemblemwiki.org/thumb/b/b9/Portrait_lilian_fe18.png/160px-Portrait_lilian_fe18.png",
+"Loretta": "https://cdn.fireemblemwiki.org/thumb/8/8a/Portrait_loretta_fe18.png/160px-Portrait_loretta_fe18.png",
+"Ludia": "https://cdn.fireemblemwiki.org/thumb/0/04/Portrait_ludia_fe18.png/160px-Portrait_ludia_fe18.png",
+"Lysander": "https://cdn.fireemblemwiki.org/thumb/c/cf/Portrait_lysander_fe18.png/160px-Portrait_lysander_fe18.png",
+"Majide": "https://cdn.fireemblemwiki.org/thumb/0/02/Portrait_majide_fe18.png/160px-Portrait_majide_fe18.png",
+"Mikaela": "https://cdn.fireemblemwiki.org/thumb/3/30/Portrait_mikaela_fe18.png/160px-Portrait_mikaela_fe18.png",
+"Mu": "https://cdn.fireemblemwiki.org/thumb/6/6f/Portrait_mu_fe18.png/160px-Portrait_mu_fe18.png",
+"Nathan": "https://cdn.fireemblemwiki.org/thumb/7/78/Portrait_nathan_fe18.png/160px-Portrait_nathan_fe18.png",
+"Nezha": "https://cdn.fireemblemwiki.org/thumb/c/cd/Portrait_nezha_fe18.png/160px-Portrait_nezha_fe18.png",
+"Ninae": "https://cdn.fireemblemwiki.org/thumb/4/4d/Portrait_ninae_fe18.png/160px-Portrait_ninae_fe18.png",
+"Noctula": "https://cdn.fireemblemwiki.org/thumb/f/f5/Portrait_noctula_fe18.png/160px-Portrait_noctula_fe18.png",
+"Nuzzuo": "https://cdn.fireemblemwiki.org/thumb/4/4f/Portrait_nuzzuo_fe18.png/160px-Portrait_nuzzuo_fe18.png",
+"Nydine": "https://cdn.fireemblemwiki.org/thumb/2/21/Portrait_nydine_fe18.png/160px-Portrait_nydine_fe18.png",
+"Olympia": "https://cdn.fireemblemwiki.org/thumb/d/d6/Portrait_olympia_fe18.png/160px-Portrait_olympia_fe18.png",
+"Orchel": "https://cdn.fireemblemwiki.org/thumb/4/45/Portrait_orchel_fe18.png/160px-Portrait_orchel_fe18.png",
+"Peppe": "https://cdn.fireemblemwiki.org/thumb/e/e2/Portrait_peppe_fe18.png/160px-Portrait_peppe_fe18.png",
+"Peter": "https://cdn.fireemblemwiki.org/thumb/9/97/Portrait_peter_fe18.png/160px-Portrait_peter_fe18.png",
+"Seteth": "https://cdn.fireemblemwiki.org/thumb/4/41/Portrait_seteth_fe18.png/160px-Portrait_seteth_fe18.png",
+"Sha Lan": "https://cdn.fireemblemwiki.org/thumb/9/9d/Portrait_sha_lan_fe18.png/160px-Portrait_sha_lan_fe18.png",
+"Simon": "https://cdn.fireemblemwiki.org/thumb/c/cf/Portrait_simon_fe18.png/160px-Portrait_simon_fe18.png",
+"Sirocco": "https://cdn.fireemblemwiki.org/thumb/d/da/Portrait_sirocco_fe18.png/160px-Portrait_sirocco_fe18.png",
+"Sofia": "https://cdn.fireemblemwiki.org/thumb/a/af/Portrait_sofia_fe18.png/160px-Portrait_sofia_fe18.png",
+"Tahonia": "https://cdn.fireemblemwiki.org/thumb/d/d5/Portrait_tahonia_fe18.png/160px-Portrait_tahonia_fe18.png",
+"Talimun": "https://cdn.fireemblemwiki.org/thumb/a/ad/Portrait_talimun_fe18.png/160px-Portrait_talimun_fe18.png",
+"Tialla": "https://cdn.fireemblemwiki.org/thumb/6/69/Portrait_tialla_fe18.png/160px-Portrait_tialla_fe18.png",
+"Tobias": "https://cdn.fireemblemwiki.org/thumb/b/b5/Portrait_tobias_fe18.png/160px-Portrait_tobias_fe18.png",
+"Troy": "https://cdn.fireemblemwiki.org/thumb/3/35/Portrait_troy_fe18.png/160px-Portrait_troy_fe18.png",
+"Ultand": "https://cdn.fireemblemwiki.org/thumb/7/70/Portrait_ultand_fe18.png/160px-Portrait_ultand_fe18.png",
+"Ursula": "https://cdn.fireemblemwiki.org/thumb/e/e3/Portrait_ursula_fe18.png/160px-Portrait_ursula_fe18.png",
+"Yang Jie": "https://cdn.fireemblemwiki.org/thumb/4/46/Portrait_yang_jie_fe18.png/160px-Portrait_yang_jie_fe18.png",
+"Zarcone": "https://cdn.fireemblemwiki.org/thumb/f/fe/Portrait_zarcone_fe18.png/160px-Portrait_zarcone_fe18.png"
+};
+const LORD_IMG = {"Cai": "https://cdn.fireemblemwiki.org/thumb/a/a7/Portrait_cai_fe18.png/160px-Portrait_cai_fe18.png", "Dietrich": "https://cdn.fireemblemwiki.org/thumb/6/67/Portrait_dietrich_fe18.png/160px-Portrait_dietrich_fe18.png", "Theodora": "https://cdn.fireemblemwiki.org/thumb/d/d2/Portrait_theodora_fe18.png/160px-Portrait_theodora_fe18.png", "Leda": "https://cdn.fireemblemwiki.org/thumb/f/f0/Portrait_leda_fe18.png/160px-Portrait_leda_fe18.png"};
+
+const KEY = "fe-fortunes-weave-rekrutierung-v1";
+let state = {};
+try { state = JSON.parse(localStorage.getItem(KEY)) || {}; } catch(e) { state = {}; }
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e) {} };
+const k = (n, l) => n + "|" + l;
+
+const CHECK = '<svg viewBox="0 0 16 16" fill="none" stroke="#0b1020" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3.2 3L13 4.5"/></svg>';
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+// Kurzformen aus den Daten in verständliche Schritte übersetzen
+const STEP_RULES = [
+  [/^(\d+) G$/, "$1 Gold zahlen"],
+  [/^Quest$/, "Rekrutierungs-Quest erledigen"],
+  [/^(\d+) Quests$/, "$1 Rekrutierungs-Quests erledigen"],
+  [/^(\d+)× (.+)$/, "$1× $2 schenken"],
+  [/^verhandeln$/, "Preis aushandeln"],
+  [/^Münzwurf: Zahl$/, "Münzwurf – „Zahl“ wählen"],
+  [/^3× Frage beantworten$/, "3× seine Frage beantworten"],
+  [/^Fragen: (.+)$/, "Fragen beantworten: $1"],
+  [/^gleiche Antworten$/, "Fragen beantworten (gleiche Antworten)"],
+  [/^passendes Item$/, "passendes Item schenken (z. B. Da-Mina-Waffe)"],
+  [/^3× „Ja“$/, "3× mit „Ja“ antworten"],
+  [/^(\w+)-Paralog \+ (.+)$/, "Paralog von $1 und Kapitel $2 abschließen"],
+  [/^(\w+)-Paralog$/, "Paralog von $1 abschließen"],
+];
+function parseReq(r) {
+  const out = {support:null, renown:null, steps:[], auto:/^Auto/.test(r)};
+  if (out.auto) { out.steps.push(r.replace(/^Auto/, "tritt automatisch bei").replace(/\(Kap\. /, "(Kapitel ")); return out; }
+  r.split(" · ").forEach(p => {
+    let m;
+    if ((m = p.match(/^S(\d+)$/))) out.support = m[1];
+    else if ((m = p.match(/^R(\d+)$/))) out.renown = m[1];
+    else {
+      const rule = STEP_RULES.find(([re]) => re.test(p));
+      out.steps.push(rule ? p.replace(rule[0], rule[1]) : p);
+    }
+  });
+  return out;
+}
+const HEART = '<svg viewBox="0 0 16 16"><path d="M8 14s-5.5-3.4-5.5-7.2A3 3 0 0 1 8 4.6a3 3 0 0 1 5.5 2.2C13.5 10.6 8 14 8 14z" fill="currentColor"/></svg>';
+const CROWN = '<svg viewBox="0 0 16 16"><path d="M2 12h12l1-7-4 3-3-5-3 5-4-3z" fill="currentColor"/></svg>';
+function reqCell(r) {
+  const p = parseReq(r);
+  if (p.auto) return `<span class="req">${esc(p.steps[0].replace("tritt automatisch bei", "automatisch"))}</span>`;
+  const tags = (p.support ? `<span class="tag" title="Unterstützung (Support) mit dem Lord">${HEART}${p.support}</span>` : "")
+             + (p.renown ? `<span class="tag" title="Ruhm (Renown) des Lords">${CROWN}${p.renown}</span>` : "");
+  return `<span class="tags">${tags}</span>${p.steps.length ? `<span class="req">${esc(p.steps.join(" · "))}</span>` : ""}`;
+}
+function reqList(r, lord) {
+  const p = parseReq(r);
+  const items = [];
+  if (p.support) items.push(`Unterstützung (Support) mit ${lord} auf Stufe ${p.support}`);
+  if (p.renown) items.push(`Ruhm (Renown) von ${lord} mindestens ${p.renown}`);
+  items.push(...p.steps);
+  return `<ul>${items.map(x => `<li>${esc(x)}</li>`).join("")}</ul>`;
+}
+const initials = n => n.split(/\s+/).map(w => w[0]).join("").slice(0,2);
+const portrait = n => IMG[n]
+  ? `<img src="${IMG[n]}" alt="" loading="lazy" onerror="this.replaceWith(document.createTextNode('${initials(n)}'))">`
+  : initials(n);
+
+// Kopf
+const head = document.getElementById("head");
+LORDS.forEach(l => {
+  const th = document.createElement("th");
+  th.innerHTML = `<div class="lord" style="--c:${l.color}">
+    <div class="crest">${LORD_IMG[l.name] ? `<img src="${LORD_IMG[l.name]}" alt="">` : ""}</div>
+    <div class="lname">${l.name}</div>
+    <div class="bar"><i id="bar-${l.id}"></i></div>
+    <div class="count" id="cnt-${l.id}"></div></div>`;
+  head.appendChild(th);
+});
+
+// Körper
+const body = document.getElementById("body");
+const GROUPS = {1:["Part I","– hier entscheidet der gewählte Lord"], 2:["Part II & III","– auf jedem Pfad möglich"]};
+let lastGroup = 0;
+DATA.forEach((c, i) => {
+  if (c.group !== lastGroup) {
+    lastGroup = c.group;
+    const g = document.createElement("tr");
+    g.className = "group"; g.dataset.group = c.group;
+    g.innerHTML = `<td colspan="5">${GROUPS[c.group][0]}<small>${GROUPS[c.group][1]}</small></td>`;
+    body.appendChild(g);
+  }
+  const tr = document.createElement("tr");
+  tr.className = "row"; tr.dataset.i = i;
+  const avail = c.req.filter(Boolean).length;
+  let html = `<td class="who"><div class="who-in" role="button" tabindex="0" aria-expanded="false">
+      <div class="pt">${portrait(c.name)}</div>
+      <div><span class="nm">${esc(c.name)}<span class="star">✦</span></span>
+      <span class="hint">${avail < 4 ? avail + " von 4 Pfaden" : "alle Pfade"}</span></div></div></td>`;
+  LORDS.forEach((l, j) => {
+    const r = c.req[j];
+    if (!r) { html += `<td><div class="na" title="${esc(c.name)} ist bei ${l.name} nicht rekrutierbar"><b>✕</b>nicht möglich</div></td>`; return; }
+    const isAuto = /^Auto/.test(r);
+    const inner = c.group === 2 ? (isAuto ? `<span class="req">automatisch</span>` : "") : reqCell(r);
+    const tip = c.group === 2 ? r : (() => { const p = parseReq(r); return [p.support && `Unterstützung ${p.support}`, p.renown && `Ruhm ${p.renown}`, ...p.steps].filter(Boolean).join(" · "); })();
+    html += `<td><button class="cell${isAuto ? " auto" : ""}" style="--c:${l.color}" data-k="${esc(k(c.name,l.id))}"
+      title="${esc(c.name)} · ${l.name}: ${esc(tip)}" aria-label="${esc(c.name)} bei ${l.name} rekrutiert">
+      <span class="gem">${CHECK}</span>${inner}</button></td>`;
+  });
+  tr.innerHTML = html;
+  body.appendChild(tr);
+
+  const dt = document.createElement("tr");
+  dt.className = "detail hidden"; dt.dataset.for = i;
+  dt.innerHTML = `<td colspan="5"><div class="detail-box">${
+    c.group === 2 ? `<div>${esc(c.req[0])}</div>` :
+    LORDS.map((l, j) => `<div><b style="color:${l.color}">${l.name}</b>${c.req[j] ? reqList(c.req[j], l.name) : "<p><i>auf diesem Pfad nicht rekrutierbar</i></p>"}</div>`).join("")
+  }</div></td>`;
+  body.appendChild(dt);
+});
+
+// Interaktion
+body.addEventListener("click", e => {
+  const b = e.target.closest(".cell");
+  if (b) {
+    state[b.dataset.k] ? delete state[b.dataset.k] : state[b.dataset.k] = 1;
+    save(); refresh(); return;
+  }
+  const w = e.target.closest(".who-in");
+  if (w) toggleDetail(w);
+});
+body.addEventListener("keydown", e => {
+  const w = e.target.closest(".who-in");
+  if (w && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); toggleDetail(w); }
+});
+function toggleDetail(w) {
+  const i = w.closest("tr").dataset.i;
+  const d = body.querySelector(`tr.detail[data-for="${i}"]`);
+  const open = d.classList.toggle("hidden") === false;
+  w.setAttribute("aria-expanded", open);
+}
+
+let filter = "all";
+document.querySelectorAll(".seg button").forEach(b => b.onclick = () => {
+  filter = b.dataset.f;
+  document.querySelectorAll(".seg button").forEach(x => x.setAttribute("aria-pressed", x === b));
+  refresh();
+});
+document.getElementById("q").oninput = refresh;
+
+function refresh() {
+  const q = document.getElementById("q").value.trim().toLowerCase();
+  const tot = {}, done = {};
+  LORDS.forEach(l => { tot[l.id] = 0; done[l.id] = 0; });
+  const visibleGroups = new Set();
+  DATA.forEach((c, i) => {
+    let all = 0, got = 0;
+    LORDS.forEach((l, j) => {
+      if (!c.req[j]) return;
+      all++; tot[l.id]++;
+      if (state[k(c.name, l.id)]) { got++; done[l.id]++; }
+    });
+    const tr = body.querySelector(`tr.row[data-i="${i}"]`);
+    tr.querySelectorAll(".cell").forEach(b => {
+      const on = !!state[b.dataset.k];
+      b.classList.toggle("on", on); b.setAttribute("aria-pressed", on);
+    });
+    tr.classList.toggle("complete", got === all);
+    const show = (!q || c.name.toLowerCase().includes(q)) &&
+      (filter === "all" || (filter === "open" ? got < all : got > 0));
+    tr.classList.toggle("hidden", !show);
+    if (!show) body.querySelector(`tr.detail[data-for="${i}"]`).classList.add("hidden");
+    if (show) visibleGroups.add(c.group);
+  });
+  body.querySelectorAll("tr.group").forEach(g => g.classList.toggle("hidden", !visibleGroups.has(+g.dataset.group)));
+  LORDS.forEach(l => {
+    document.getElementById("cnt-" + l.id).textContent = `${done[l.id]} / ${tot[l.id]}`;
+    document.getElementById("bar-" + l.id).style.width = (100 * done[l.id] / tot[l.id]) + "%";
+  });
+}
+refresh();
+
+// Sichern / Laden / Reset
+document.getElementById("exp").onclick = () => {
+  const blob = new Blob([JSON.stringify(state, null, 1)], {type:"application/json"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "fortunes-weave-fortschritt.json";
+  a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+};
+const file = document.getElementById("file");
+document.getElementById("imp").onclick = () => file.click();
+file.onchange = async () => {
+  try {
+    const data = JSON.parse(await file.files[0].text());
+    if (typeof data !== "object" || Array.isArray(data)) throw 0;
+    state = data; save(); refresh();
+  } catch(e) { alert("Die Datei konnte nicht gelesen werden."); }
+  file.value = "";
+};
+document.getElementById("rst").onclick = () => {
+  if (confirm("Wirklich alle Häkchen entfernen?")) { state = {}; save(); refresh(); }
+};
+</script>
+</body>
+</html>
