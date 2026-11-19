@@ -159,6 +159,74 @@ footer{margin-top:22px; text-align:center; font-size:14px; color:var(--muted); f
 footer a{color:var(--gold-dim)}
 .hidden{display:none !important}
 
+/* Ansicht-Umschalter */
+.tabs{display:flex; margin:16px auto 0; width:max-content; max-width:100%; border:1px solid var(--line); border-radius:999px; padding:3px; background:rgba(255,255,255,.03)}
+.tabs a{display:flex; align-items:center; gap:7px; padding:8px 18px; border-radius:999px; font:700 13px "Cinzel",serif; letter-spacing:.08em; color:var(--muted); text-decoration:none; transition:color .2s}
+.tabs a:hover{color:var(--ink)}
+.tabs a[aria-current=page]{background:linear-gradient(180deg,rgba(212,175,106,.32),rgba(212,175,106,.12)); color:var(--ink); box-shadow:inset 0 0 0 1px rgba(212,175,106,.35)}
+.tabs svg{width:15px; height:15px; flex:none}
+
+/* Gasthaus */
+.inn-note{margin:0 auto 14px; max-width:760px; text-align:center; color:var(--muted); font-size:15px; font-style:italic}
+.inn-note b{color:var(--gold); font-style:normal; font-weight:600}
+.igrid{display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:14px}
+.icard,.dish{
+  border:1px solid var(--line); border-radius:14px; padding:12px 14px; --c:var(--gold-dim);
+  background:linear-gradient(180deg,rgba(28,37,66,.9),rgba(20,27,49,.9));
+  box-shadow:0 12px 34px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.04);
+}
+.ihead{display:flex; align-items:center; gap:12px; margin-bottom:6px; padding-bottom:8px; border-bottom:1px solid rgba(255,255,255,.06)}
+.icard .pt{border-color:var(--c)}
+.icard.lordcard .pt{border-width:2px; box-shadow:0 0 12px color-mix(in srgb,var(--c) 50%,transparent)}
+.icard.lordcard .nm{color:var(--c)}
+.irow{display:grid; grid-template-columns:88px 1fr; gap:8px; align-items:start; padding:4px 0}
+.irow > b{font:700 11px "Cinzel",serif; letter-spacing:.08em; padding-top:5px; white-space:nowrap}
+.love > b, .dgrp.love h3{color:var(--gold)}
+.like > b, .dgrp.like h3{color:var(--ink)}
+.hate > b, .dgrp.hate h3{color:#e57b8c}
+.dgrp.neutral h3{color:var(--muted)}
+.chips,.people{display:flex; flex-wrap:wrap; gap:5px}
+.dchip,.pchip{
+  all:unset; cursor:pointer; display:inline-flex; align-items:center; gap:5px; border-radius:999px;
+  border:1px solid rgba(255,255,255,.1); background:rgba(255,255,255,.04); transition:border-color .2s, background .2s;
+}
+.dchip{padding:2px 9px 2px 6px; font:600 14px/1.3 "Cormorant Garamond",serif}
+.dchip i{font-style:normal; font-size:13px}
+.love .dchip, .love .pchip{border-color:rgba(212,175,106,.55); background:rgba(212,175,106,.14)}
+.hate .dchip{color:#d6aab2; border-color:rgba(229,123,140,.3); background:rgba(229,123,140,.07)}
+.hate .pchip{border-color:rgba(229,123,140,.3)}
+.dchip:hover,.pchip:hover{border-color:var(--gold)}
+.dchip:focus-visible,.pchip:focus-visible,.dpick:focus-visible{outline:2px solid var(--gold); outline-offset:1px}
+.none{color:var(--muted); padding-top:2px}
+.inn-empty{text-align:center; color:var(--muted); font-style:italic; padding:20px}
+.inn-missing{margin-top:16px; text-align:center; color:var(--muted); font-size:14px; font-style:italic}
+
+.dpicks{display:grid; grid-template-columns:repeat(auto-fill,minmax(190px,1fr)); gap:8px; margin-bottom:16px}
+.dpick{
+  all:unset; cursor:pointer; display:flex; align-items:center; gap:9px; padding:8px 12px; border-radius:10px;
+  border:1px solid var(--line); background:rgba(255,255,255,.03); font:600 15px/1.15 "Cormorant Garamond",serif;
+}
+.dpick i{font-style:normal; font-size:19px}
+.dpick:hover{border-color:var(--gold-dim)}
+.dpick[aria-pressed=true]{border-color:var(--gold); background:linear-gradient(180deg,rgba(212,175,106,.28),rgba(212,175,106,.1)); box-shadow:0 0 14px rgba(212,175,106,.22)}
+.dish{padding:18px 20px}
+.dhead{display:flex; align-items:center; gap:14px; margin-bottom:4px}
+.dico{flex:none; width:58px; height:58px; border-radius:50%; display:grid; place-items:center; font-size:30px; border:2px solid var(--gold); background:radial-gradient(circle at 50% 35%,#2a3560,#121830); box-shadow:0 0 0 3px rgba(0,0,0,.4), 0 0 18px rgba(212,175,106,.3)}
+.dhead h2{margin:0; font:700 22px/1.15 "Cinzel",serif; color:var(--gold)}
+.dhead span{color:var(--muted); font-style:italic}
+.dgrp{margin-top:14px}
+.dgrp h3{margin:0 0 8px; font:700 12px "Cinzel",serif; letter-spacing:.15em; text-transform:uppercase}
+.dgrp h3 small{font:600 12px "Cinzel",serif; color:var(--muted); letter-spacing:0; margin-left:6px}
+.pchip{gap:7px; padding:3px 11px 3px 3px; font:600 15px/1.2 "Cormorant Garamond",serif}
+.pchip .pt{width:26px; height:26px; font-size:10px; border-width:1px; border-color:var(--c,var(--gold-dim))}
+.dgrp.neutral .pchip{opacity:.72}
+.q{color:#f0b35a; font:700 11px "Cinzel",serif; margin-left:2px; vertical-align:super; line-height:0}
+.disp{margin:8px 0 0; font-size:13.5px; font-style:italic; color:var(--muted)}
+
+.detail-inn{grid-column:1/-1; border-top:1px solid rgba(255,255,255,.06); padding-top:8px; color:var(--muted)}
+.detail-inn b{color:var(--gold); margin-right:6px}
+.detail-inn a{color:var(--gold); margin-left:6px; white-space:nowrap}
+
 @media (max-width:700px){
   body{font-size:16px}
   .wrap{padding:max(14px, env(safe-area-inset-top)) 10px calc(40px + env(safe-area-inset-bottom))}
@@ -198,6 +266,21 @@ footer a{color:var(--gold-dim)}
   .detail-box{grid-template-columns:1fr 1fr; gap:8px 12px; font-size:14px}
   .detail-box ul{padding-left:14px}
   .legend{gap:8px 14px; font-size:14px}
+  .tabs{margin-top:12px}
+  .tabs a{padding:7px 14px; font-size:12px; letter-spacing:.05em}
+  .inn-note{font-size:14px; margin-bottom:10px}
+  .igrid{grid-template-columns:1fr; gap:10px}
+  .icard{padding:10px 12px}
+  .irow{grid-template-columns:76px 1fr; gap:6px}
+  .irow > b{font-size:10px}
+  .dchip{font-size:14px}
+  .dpicks{grid-template-columns:1fr 1fr; gap:6px; margin-bottom:12px}
+  .dpick{padding:7px 9px; font-size:14px; gap:7px}
+  .dpick i{font-size:17px}
+  .dish{padding:14px 12px}
+  .dico{width:46px; height:46px; font-size:24px}
+  .dhead h2{font-size:18px}
+  .pchip{font-size:14px}
 }
 </style>
 </head>
@@ -205,11 +288,16 @@ footer a{color:var(--gold-dim)}
 <div class="wrap">
   <header>
     <div class="eyebrow">Fire Emblem · Fortune's Weave</div>
-    <h1>Rekrutierungs-Chronik</h1>
-    <div class="sub">Wer folgt welchem Flammenlord? Tippe auf eine Raute zum Abhaken – auf einen Namen für die Bedingungen.</div>
+    <h1 id="title">Rekrutierungs-Chronik</h1>
+    <div class="sub" id="subtitle">Wer folgt welchem Flammenlord? Tippe auf eine Raute zum Abhaken – auf einen Namen für die Bedingungen.</div>
     <div class="ornament">✦</div>
+    <nav class="tabs" aria-label="Ansicht">
+      <a href="#rekrutierung" data-view="rek"><svg viewBox="0 0 16 16"><path d="M8 1.5 14.5 8 8 14.5 1.5 8z" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 5 11 8 8 11 5 8z" fill="currentColor"/></svg>Rekrutierung</a>
+      <a href="#gasthaus" data-view="inn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M1.5 8.5h13a6.5 5 0 0 1-13 0z" fill="currentColor" fill-opacity=".25"/><path d="M5 6c0-1 1-1.2 1-2.4M8 6c0-1 1-1.2 1-2.4M11 6c0-1 1-1.2 1-2.4"/></svg>Gasthaus</a>
+    </nav>
   </header>
 
+  <section id="view-rek">
   <div class="toolbar">
     <div class="seg" role="group" aria-label="Filter">
       <button data-f="all" aria-pressed="true">Alle</button>
@@ -240,8 +328,30 @@ footer a{color:var(--gold-dim)}
     <span><span class="tag"><svg viewBox="0 0 16 16" style="color:#e57b8c"><path d="M8 14s-5.5-3.4-5.5-7.2A3 3 0 0 1 8 4.6a3 3 0 0 1 5.5 2.2C13.5 10.6 8 14 8 14z" fill="currentColor"/></svg>3</span> nötige Unterstützungs-Stufe (Support) mit dem Lord</span>
     <span><span class="tag"><svg viewBox="0 0 16 16"><path d="M2 12h12l1-7-4 3-3-5-3 5-4-3z" fill="currentColor"/></svg>9</span> nötiger Ruhm (Renown) des Lords</span>
   </div>
+  </section>
+
+  <section id="view-inn" class="hidden">
+    <p class="inn-note">Ein gemeinsames Essen stärkt die <b>Unterstützung</b>. Schmeckt dem Gast das Gericht (<b>liebt</b> oder <b>mag</b>), gibt es <b>2 Motivation</b> statt 1. Einladen kann man nur, wem man schon ein Geschenk gemacht hat.</p>
+    <div class="toolbar">
+      <div class="seg" role="group" aria-label="Sortierung">
+        <button data-m="chars" aria-pressed="true">Nach Charakter</button>
+        <button data-m="dishes" aria-pressed="false">Nach Gericht</button>
+      </div>
+      <input type="search" id="iq" placeholder="Name suchen …">
+    </div>
+    <div id="inn-chars">
+      <div class="igrid" id="igrid"></div>
+      <div class="inn-empty hidden" id="inn-empty">Kein Charakter gefunden.</div>
+      <div class="inn-missing" id="inn-missing"></div>
+    </div>
+    <div id="inn-dishes" class="hidden">
+      <div class="dpicks" id="dpicks"></div>
+      <div class="dish" id="dish"></div>
+    </div>
+  </section>
+
   <footer>
-    Fortschritt wird automatisch in diesem Browser gespeichert. Daten: Rekrutierungs-Guides von RPG Site &amp; Keen Gamer · Bilder: <a href="https://fireemblemwiki.org/" target="_blank" rel="noopener">Fire Emblem Wiki</a>
+    Fortschritt wird automatisch in diesem Browser gespeichert. Daten: Rekrutierungs-Guides von RPG Site &amp; Keen Gamer · Gasthaus: <a href="https://fortunesweave.co.uk/wiki/meals" target="_blank" rel="noopener">fortunesweave.co.uk</a> (auf Dietrichs Pfad erfasst), abgeglichen mit <a href="https://polyterpe.github.io/FEFWmeals/" target="_blank" rel="noopener">FEFW Meal Guide</a> · Bilder: <a href="https://fireemblemwiki.org/" target="_blank" rel="noopener">Fire Emblem Wiki</a>
   </footer>
 </div>
 
@@ -383,6 +493,77 @@ const IMG = {
 };
 const LORD_IMG = {"Cai": "https://cdn.fireemblemwiki.org/thumb/a/a7/Portrait_cai_fe18.png/160px-Portrait_cai_fe18.png", "Dietrich": "https://cdn.fireemblemwiki.org/thumb/6/67/Portrait_dietrich_fe18.png/160px-Portrait_dietrich_fe18.png", "Theodora": "https://cdn.fireemblemwiki.org/thumb/d/d2/Portrait_theodora_fe18.png/160px-Portrait_theodora_fe18.png", "Leda": "https://cdn.fireemblemwiki.org/thumb/f/f0/Portrait_leda_fe18.png/160px-Portrait_leda_fe18.png"};
 
+// Gasthaus: [Englischer Name, deutsche Umschreibung, Symbol, liebt, mag, mag nicht] – alle anderen: neutral
+// Quelle: fortunesweave.co.uk/wiki/meals (auf Dietrichs Pfad erfasst, Stand 5. Okt. 2026)
+const DISHES = [
+ ["Goat Roast", "Ziegenbraten", "🍖",
+  "Cai,Centurio,Dadao,Goliath,Lilian,Loretta,Olympia,Orchel,Peter,Sofia",
+  "Alexandra,Anatolia,Benditz,Dante,Diego,Dietrich,Esmeralda,Halvin,Io,Ludia,Lysander,Nezha,Ninae,Noctula,Nuzzuo,Peppe,Simon,Theodora,Ultand",
+  "Bonaventure,Buccar,Fianna,Gaitz,Jasmine,Kiroc,Leda,Majide,Ursula,Yang Jie,Zarcone"],
+ ["Garlic Seared Scallops", "Jakobsmuscheln mit Knoblauch", "🦪",
+  "Benditz,Bonaventure,Cai,Dadao,Guzran,Jasmine,Kiroc,Lilian,Orchel,Peppe,Sofia,Talimun,Ultand",
+  "Alexandra,Anatolia,Buccar,Diego,Fabio,Goliath,Leda,Loretta,Lysander,Majide,Mikaela,Nezha,Nydine,Peter,Sha Lan,Theodora",
+  "Dante,Fianna,Io,Ludia,Mu,Ninae,Sirocco,Zarcone"],
+ ["Pumpkin Soup", "Kürbissuppe", "🎃",
+  "Alexandra,Centurio,Dietrich,Esmeralda,Guzran,Lilian,Loretta,Orchel,Peter,Sofia,Talimun,Zarcone",
+  "Anatolia,Benditz,Bonaventure,Cai,Dadao,Dante,Fabio,Halvin,Inyoni,Io,Kiroc,Leda,Ludia,Lysander,Majide,Mu,Nezha,Peppe,Sha Lan,Simon,Sirocco,Tialla,Tobias,Ultand,Ursula,Yang Jie",
+  "Diego,Fianna,Noctula,Nuzzuo"],
+ ["Salt-Crusted Ham", "Schinken in Salzkruste", "🥓",
+  "Cai,Centurio,Dadao,Fabio,Fianna,Goliath,Guzran,Io,Kiroc,Lilian,Lysander,Mikaela,Orchel,Peter,Sirocco,Sofia,Talimun,Tobias",
+  "Alexandra,Anatolia,Benditz,Dante,Inyoni,Leda,Ludia,Majide,Olympia,Peppe,Sha Lan,Theodora,Ultand",
+  "Buccar,Jasmine,Jester,Nydine,Tialla,Ursula,Zarcone"],
+ ["Fish-Sauce Soup", "Fischsoßen-Suppe", "🍲",
+  "Bonaventure,Cai,Centurio,Dadao,Fianna,Guzran,Kiroc,Lilian,Lysander,Orchel,Peppe,Sofia,Talimun,Tobias,Ultand",
+  "Alexandra,Anatolia,Benditz,Esmeralda,Fabio,Goliath,Inyoni,Jasmine,Leda,Ludia,Majide,Mikaela,Nydine,Peter,Seteth,Sha Lan,Sirocco,Theodora",
+  "Buccar,Dante,Diego,Io,Jester,Mu,Noctula,Zarcone"],
+ ["Madazins", "", "🥟",
+  "Alexandra,Centurio,Halvin,Loretta,Mu,Nezha,Orchel,Simon,Sofia,Tialla,Zarcone",
+  "Anatolia,Benditz,Cai,Dadao,Dante,Dietrich,Esmeralda,Jester,Lilian,Ludia,Ninae,Nydine,Olympia,Peppe,Peter,Ultand,Ursula",
+  "Bonaventure,Fabio,Fianna,Gaitz,Goliath,Kiroc,Leda,Majide,Mikaela,Sirocco,Tobias,Yang Jie"],
+ ["Sand Boar and Beans", "Sandeber mit Bohnen", "🫘",
+  "Cai,Centurio,Dadao,Fabio,Goliath,Guzran,Io,Kiroc,Lilian,Ludia,Mikaela,Orchel,Sirocco,Sofia,Talimun,Tobias",
+  "Alexandra,Anatolia,Benditz,Buccar,Catania,Dante,Diego,Gaitz,Leda,Loretta,Lysander,Majide,Nezha,Noctula,Nuzzuo,Olympia,Peppe,Peter,Sha Lan,Theodora,Ultand",
+  "Halvin,Inyoni,Jasmine,Mu,Nydine,Simon,Tialla,Ursula"],
+ ["Cheese-Coated Crayfish", "Flusskrebs in Käsekruste", "🦞",
+  "Cai,Centurio,Dadao,Esmeralda,Lilian,Loretta,Nydine,Orchel,Peppe,Peter,Sofia,Tialla,Ultand",
+  "Alexandra,Anatolia,Benditz,Dietrich,Halvin,Jasmine,Ludia,Lysander,Nezha,Ninae,Nuzzuo,Olympia,Simon,Theodora",
+  "Buccar,Dante,Fabio,Fianna,Gaitz,Goliath,Io,Leda,Majide,Mikaela,Seteth,Sirocco,Yang Jie,Zarcone"],
+ ["Honey-Poached Pear", "Birne in Honig pochiert", "🍐",
+  "Alexandra,Benditz,Bonaventure,Buccar,Cai,Dadao,Dietrich,Esmeralda,Guzran,Nezha,Orchel,Peter,Sofia,Talimun,Zarcone",
+  "Anatolia,Dante,Diego,Fabio,Halvin,Jasmine,Jester,Kiroc,Leda,Lilian,Loretta,Majide,Mu,Peppe,Sha Lan,Simon,Tialla,Ultand,Ursula,Yang Jie",
+  "Fianna,Io,Ludia,Ninae,Nuzzuo,Seteth,Sirocco,Tobias"],
+ ["Sweet-and-Sour Stick Bugs", "Süßsaure Stabschrecken", "🦗",
+  "Benditz,Cai,Dadao,Diego,Fabio,Goliath,Guzran,Kiroc,Lilian,Mikaela,Orchel,Peter,Sofia,Talimun,Tobias",
+  "Alexandra,Anatolia,Bonaventure,Buccar,Dante,Leda,Loretta,Lysander,Majide,Nezha,Noctula,Peppe,Sha Lan,Ultand",
+  "Esmeralda,Ludia,Mu,Ninae,Nydine,Olympia,Seteth,Theodora,Tialla,Ursula,Zarcone"],
+ ["Charred Fish Grill", "Gegrillter Fisch", "🐟",
+  "Bonaventure,Cai,Centurio,Dadao,Esmeralda,Fabio,Guzran,Kiroc,Lilian,Ludia,Mikaela,Orchel,Peppe,Sofia,Talimun,Tobias,Ultand",
+  "Alexandra,Anatolia,Benditz,Buccar,Catania,Gaitz,Goliath,Jasmine,Leda,Loretta,Lysander,Majide,Nezha,Nuzzuo,Nydine,Seteth,Sha Lan,Sirocco,Theodora",
+  "Dante,Fianna,Halvin,Inyoni,Io,Mu,Simon"],
+ ["Coffee-Berry Paste", "Kaffeebeeren-Paste", "☕",
+  "Alexandra,Buccar,Centurio,Dietrich,Esmeralda,Fabio,Guzran,Ludia,Mu,Nezha,Orchel,Peter,Sofia,Talimun,Zarcone",
+  "Anatolia,Benditz,Bonaventure,Cai,Catania,Dadao,Dante,Gaitz,Io,Jester,Kiroc,Leda,Lilian,Loretta,Majide,Mikaela,Peppe,Sha Lan,Sirocco,Tialla,Tobias,Ultand,Ursula,Yang Jie",
+  "Fianna,Inyoni"],
+].map(([en, de, ico, love, like, hate]) => ({en, de, ico, love:love.split(","), like:like.split(","), hate:hate.split(",")}));
+// Abgleich mit polyterpe.github.io/FEFWmeals (Nov. 2026): 622 Einträge gleich, diese 5 widersprechen sich → mit „?“ markiert
+const DISPUTED = {
+  "Esmeralda|Charred Fish Grill": "mag",
+  "Mu|Salt-Crusted Ham": "mag nicht",
+  "Zarcone|Salt-Crusted Ham": "liebt",
+  "Zarcone|Fish-Sauce Soup": "liebt",
+  "Zarcone|Madazins": "mag nicht",
+};
+const LEVELS = [["love","♫","Liebt"], ["like","♪","Mag"], ["hate","✕","Mag nicht"], ["neutral","○","Neutral"]];
+// pro Charakter: {love:[Gericht-Index…], like:[…], hate:[…], neutral:[…]}
+const INN = {};
+DISHES.forEach((d, i) => ["love","like","hate"].forEach(lv => d[lv].forEach(n => {
+  (INN[n] = INN[n] || {love:[], like:[], hate:[], neutral:[]})[lv].push(i);
+})));
+DISHES.forEach((d, i) => {
+  d.neutral = Object.keys(INN).filter(n => !d.love.includes(n) && !d.like.includes(n) && !d.hate.includes(n)).sort((a, b) => a.localeCompare(b, "de"));
+  d.neutral.forEach(n => INN[n].neutral.push(i));
+});
+
 const KEY = "fe-fortunes-weave-rekrutierung-v1";
 let state = {};
 try { state = JSON.parse(localStorage.getItem(KEY)) || {}; } catch(e) { state = {}; }
@@ -440,9 +621,12 @@ function reqList(r, lord) {
   return `<ul>${items.map(x => `<li>${esc(x)}</li>`).join("")}</ul>`;
 }
 const initials = n => n.split(/\s+/).map(w => w[0]).join("").slice(0,2);
-const portrait = n => IMG[n]
-  ? `<img src="${IMG[n]}" alt="" loading="lazy" onerror="this.replaceWith(document.createTextNode('${initials(n)}'))">`
+const portrait = n => (IMG[n] || LORD_IMG[n])
+  ? `<img src="${IMG[n] || LORD_IMG[n]}" alt="" loading="lazy" onerror="this.replaceWith(document.createTextNode('${initials(n)}'))">`
   : initials(n);
+const dishName = i => `${DISHES[i].ico} ${DISHES[i].en}`;
+const innLine = n => !INN[n] ? "" : `<div class="detail-inn"><b>Gasthaus</b>liebt: ${
+  esc(INN[n].love.map(dishName).join(", ") || "nichts Bestimmtes")}<a href="#gasthaus" data-inn="${esc(n)}">alle Vorlieben →</a></div>`;
 
 // Kopf
 const head = document.getElementById("head");
@@ -493,12 +677,14 @@ DATA.forEach((c, i) => {
   dt.innerHTML = `<td colspan="5"><div class="detail-box">${
     c.group === 2 ? `<div>${esc(c.req[0])}</div>` :
     LORDS.map((l, j) => `<div><b style="color:${l.color}">${l.name}</b>${c.req[j] ? reqList(c.req[j], l.name) : "<p><i>auf diesem Pfad nicht rekrutierbar</i></p>"}</div>`).join("")
-  }</div></td>`;
+  }${innLine(c.name)}</div></td>`;
   body.appendChild(dt);
 });
 
 // Interaktion
 body.addEventListener("click", e => {
+  const a = e.target.closest("[data-inn]");
+  if (a) { e.preventDefault(); showChar(a.dataset.inn); return; }
   const b = e.target.closest(".cell");
   if (b) {
     state[b.dataset.k] ? delete state[b.dataset.k] : state[b.dataset.k] = 1;
@@ -519,9 +705,9 @@ function toggleDetail(w) {
 }
 
 let filter = "all";
-document.querySelectorAll(".seg button").forEach(b => b.onclick = () => {
+document.querySelectorAll("#view-rek .seg button").forEach(b => b.onclick = () => {
   filter = b.dataset.f;
-  document.querySelectorAll(".seg button").forEach(x => x.setAttribute("aria-pressed", x === b));
+  document.querySelectorAll("#view-rek .seg button").forEach(x => x.setAttribute("aria-pressed", x === b));
   refresh();
 });
 document.getElementById("q").oninput = refresh;
@@ -579,6 +765,114 @@ file.onchange = async () => {
 document.getElementById("rst").onclick = () => {
   if (confirm("Wirklich alle Häkchen entfernen?")) { state = {}; save(); refresh(); }
 };
+
+// ---------- Gasthaus ----------
+const lordOf = n => LORDS.find(l => l.name === n);
+const INN_ORDER = [...LORDS.map(l => l.name).filter(n => INN[n]),
+  ...Object.keys(INN).filter(n => !lordOf(n)).sort((a, b) => a.localeCompare(b, "de"))];
+const Q = (n, en) => DISPUTED[n + "|" + en] ? `<sup class="q">?</sup>` : "";
+const dispNote = (pairs) => pairs.length ? `<p class="disp"><sup class="q">?</sup> unsicher – eine zweite Quelle sagt: ${
+  pairs.map(([n, en, txt]) => esc(`${txt} ${DISPUTED[n + "|" + en]}`)).join(" · ")}</p>` : "";
+const dchip = (i, n) => `<button class="dchip" data-d="${i}" title="Wer mag ${esc(DISHES[i].en)}?"><i>${DISHES[i].ico}</i>${esc(DISHES[i].en)}${Q(n, DISHES[i].en)}</button>`;
+const pchip = (n, en) => { const l = lordOf(n);
+  return `<button class="pchip" data-n="${esc(n)}" ${l ? `style="--c:${l.color}"` : ""}><span class="pt">${portrait(n)}</span>${esc(n)}${Q(n, en)}</button>`; };
+
+// Nach Charakter
+const igrid = document.getElementById("igrid");
+igrid.innerHTML = INN_ORDER.map(n => {
+  const c = INN[n], l = lordOf(n), good = c.love.length + c.like.length;
+  return `<article class="icard${l ? " lordcard" : ""}" data-name="${esc(n)}" ${l ? `style="--c:${l.color}"` : ""}>
+    <div class="ihead"><div class="pt">${portrait(n)}</div><div><span class="nm">${esc(n)}</span>
+      <span class="hint">${l ? "Lord · " : ""}mag ${good} von ${DISHES.length} Gerichten</span></div></div>
+    ${LEVELS.slice(0, 3).map(([lv, ic, lab]) => `<div class="irow ${lv}"><b>${ic} ${lab}</b><div class="chips">${
+      c[lv].length ? c[lv].map(i => dchip(i, n)).join("") : `<span class="none">–</span>`}</div></div>`).join("")}
+    ${dispNote(DISHES.filter(d => DISPUTED[n + "|" + d.en]).map(d => [n, d.en, d.en + ":"]))}
+  </article>`;
+}).join("");
+const missing = DATA.map(c => c.name).filter(n => !INN[n]);
+document.getElementById("inn-missing").textContent = missing.length
+  ? `Noch keine Daten für: ${missing.join(", ")}. Nicht aufgeführte Gerichte sind dem Charakter egal (neutral).`
+  : "Nicht aufgeführte Gerichte sind dem Charakter egal (neutral).";
+
+const iq = document.getElementById("iq");
+function filterInn() {
+  const q = iq.value.trim().toLowerCase();
+  let n = 0;
+  igrid.querySelectorAll(".icard").forEach(c => {
+    const show = !q || c.dataset.name.toLowerCase().includes(q);
+    c.classList.toggle("hidden", !show); n += show;
+  });
+  document.getElementById("inn-empty").classList.toggle("hidden", n > 0);
+}
+iq.oninput = filterInn;
+
+// Nach Gericht
+let dishSel = 0;
+const dpicks = document.getElementById("dpicks");
+dpicks.innerHTML = DISHES.map((d, i) => `<button class="dpick" data-d="${i}" aria-pressed="false"><i>${d.ico}</i><span>${esc(d.en)}</span></button>`).join("");
+function renderDish() {
+  const d = DISHES[dishSel];
+  dpicks.querySelectorAll(".dpick").forEach(b => b.setAttribute("aria-pressed", +b.dataset.d === dishSel));
+  document.getElementById("dish").innerHTML = `
+    <div class="dhead"><div class="dico">${d.ico}</div><div><h2>${esc(d.en)}</h2>${d.de ? `<span>${esc(d.de)}</span>` : ""}</div></div>
+    ${[0, 1, 2, 3].map(j => { const [lv, ic, lab] = LEVELS[j], list = d[lv];
+      return list.length ? `<section class="dgrp ${lv}"><h3>${ic} ${lab}<small>${list.length}</small></h3>
+        <div class="people">${list.map(n => pchip(n, d.en)).join("")}</div></section>` : ""; }).join("")}
+    ${dispNote(Object.keys(INN).filter(n => DISPUTED[n + "|" + d.en]).map(n => [n, d.en, n]))}`;
+}
+
+// Umschalten Charakter / Gericht
+let innMode = "chars";
+function setInnMode(m) {
+  innMode = m;
+  document.querySelectorAll("#view-inn .seg button").forEach(b => b.setAttribute("aria-pressed", b.dataset.m === m));
+  document.getElementById("inn-chars").classList.toggle("hidden", m !== "chars");
+  document.getElementById("inn-dishes").classList.toggle("hidden", m !== "dishes");
+  iq.classList.toggle("hidden", m !== "chars");
+  if (m === "dishes") renderDish();
+}
+document.querySelectorAll("#view-inn .seg button").forEach(b => b.onclick = () => setInnMode(b.dataset.m));
+const innTop = () => { const t = document.querySelector(".tabs"); window.scrollTo(0, t.getBoundingClientRect().top + window.scrollY - 10); };
+function showChar(n) {
+  go("inn"); setInnMode("chars"); iq.value = n; filterInn(); innTop();
+}
+function showDish(i) {
+  go("inn"); dishSel = i; setInnMode("dishes"); innTop();
+}
+document.getElementById("view-inn").addEventListener("click", e => {
+  const d = e.target.closest("[data-d]");
+  if (d) { showDish(+d.dataset.d); return; }
+  const p = e.target.closest("[data-n]");
+  if (p) showChar(p.dataset.n);
+});
+
+// Ansicht Rekrutierung / Gasthaus (über #gasthaus in der Adresse)
+const HEADS = {
+  rek: ["Rekrutierungs-Chronik", "Wer folgt welchem Flammenlord? Tippe auf eine Raute zum Abhaken – auf einen Namen für die Bedingungen."],
+  inn: ["Gasthaus-Tafel", "Wer isst was am liebsten? Tippe auf ein Gericht oder einen Namen, um die Seite zu wechseln."],
+};
+let view = null;
+const route = () => setView(location.hash.startsWith("#gasthaus") ? "inn" : "rek");
+function go(v) {
+  const h = v === "inn" ? "#gasthaus" : "#rekrutierung";
+  try { if (location.hash !== h) history.pushState(null, "", h); } catch(e) {}
+  setView(v);
+}
+document.querySelectorAll(".tabs a").forEach(a => a.onclick = e => { e.preventDefault(); go(a.dataset.view); });
+function setView(v) {
+  if (v === view) return;
+  const first = view === null;
+  view = v;
+  document.getElementById("view-rek").classList.toggle("hidden", v !== "rek");
+  document.getElementById("view-inn").classList.toggle("hidden", v !== "inn");
+  document.querySelectorAll(".tabs a").forEach(a => a.dataset.view === v ? a.setAttribute("aria-current", "page") : a.removeAttribute("aria-current"));
+  document.getElementById("title").textContent = HEADS[v][0];
+  document.getElementById("subtitle").textContent = HEADS[v][1];
+  if (!first) window.scrollTo(0, 0);
+}
+window.addEventListener("hashchange", route);
+window.addEventListener("popstate", route);
+route();
 </script>
 </body>
 </html>
