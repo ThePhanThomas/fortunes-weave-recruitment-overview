@@ -227,6 +227,14 @@ footer a{color:var(--gold-dim)}
 .detail-inn b{color:var(--gold); margin-right:6px}
 .detail-inn a{color:var(--gold); margin-left:6px; white-space:nowrap}
 
+/* Geschenke */
+.gsel{font:600 16px "Cormorant Garamond",serif; color:var(--ink); background:rgba(255,255,255,.04); border:1px solid var(--line); border-radius:999px; padding:8px 14px; max-width:100%; min-width:220px}
+.gsel option{background:#141b31; color:var(--ink)}
+.gchip{all:unset; cursor:pointer; padding:2px 9px; border-radius:999px; border:1px solid rgba(255,255,255,.1); background:rgba(255,255,255,.04); font:600 14px/1.3 "Cormorant Garamond",serif; transition:border-color .2s}
+.love .gchip{border-color:rgba(212,175,106,.55); background:rgba(212,175,106,.14)}
+.gchip:hover{border-color:var(--gold)}
+.gchip:focus-visible{outline:2px solid var(--gold); outline-offset:1px}
+
 @media (max-width:700px){
   body{font-size:16px}
   .wrap{padding:max(14px, env(safe-area-inset-top)) 10px calc(40px + env(safe-area-inset-bottom))}
@@ -267,7 +275,9 @@ footer a{color:var(--gold-dim)}
   .detail-box ul{padding-left:14px}
   .legend{gap:8px 14px; font-size:14px}
   .tabs{margin-top:12px}
-  .tabs a{padding:7px 14px; font-size:12px; letter-spacing:.05em}
+  .tabs a{padding:7px 10px; font-size:11px; letter-spacing:.02em; gap:5px}
+  .tabs svg{width:13px; height:13px}
+  .gsel{width:100%; min-width:0}
   .inn-note{font-size:14px; margin-bottom:10px}
   .igrid{grid-template-columns:1fr; gap:10px}
   .icard{padding:10px 12px}
@@ -294,6 +304,7 @@ footer a{color:var(--gold-dim)}
     <nav class="tabs" aria-label="Ansicht">
       <a href="#rekrutierung" data-view="rek"><svg viewBox="0 0 16 16"><path d="M8 1.5 14.5 8 8 14.5 1.5 8z" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 5 11 8 8 11 5 8z" fill="currentColor"/></svg>Rekrutierung</a>
       <a href="#gasthaus" data-view="inn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M1.5 8.5h13a6.5 5 0 0 1-13 0z" fill="currentColor" fill-opacity=".25"/><path d="M5 6c0-1 1-1.2 1-2.4M8 6c0-1 1-1.2 1-2.4M11 6c0-1 1-1.2 1-2.4"/></svg>Gasthaus</a>
+      <a href="#geschenke" data-view="gift"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><rect x="2" y="6.5" width="12" height="8" rx="1" fill="currentColor" fill-opacity=".25"/><path d="M1.5 4.5h13v2h-13zM8 4.5v10M8 4.5C6.5 1.5 4 2 4.6 3.6 5 4.5 8 4.5 8 4.5zM8 4.5c1.5-3 4-2.5 3.4-.9C11 4.5 8 4.5 8 4.5z"/></svg>Geschenke</a>
     </nav>
   </header>
 
@@ -350,8 +361,28 @@ footer a{color:var(--gold-dim)}
     </div>
   </section>
 
+  <section id="view-gift" class="hidden">
+    <p class="inn-note">Jede Woche ein Geschenk pro Person. Ein Geschenk, das sie <b>liebt</b>, bringt am meisten <b>Unterstützung</b>; eines, das sie <b>mag</b>, gibt zusätzlich Motivation. Das erste Geschenk schaltet gemeinsames Essen im Gasthaus frei – egal welches.</p>
+    <div class="toolbar">
+      <div class="seg" role="group" aria-label="Sortierung">
+        <button data-g="chars" aria-pressed="true">Nach Charakter</button>
+        <button data-g="gifts" aria-pressed="false">Nach Geschenk</button>
+      </div>
+      <input type="search" id="gq" placeholder="Name suchen …">
+      <select id="gsel" class="gsel hidden" aria-label="Geschenk wählen"></select>
+    </div>
+    <div id="gift-chars">
+      <div class="igrid" id="ggrid"></div>
+      <div class="inn-empty hidden" id="gift-empty">Kein Charakter gefunden.</div>
+      <div class="inn-missing" id="gift-missing"></div>
+    </div>
+    <div id="gift-gifts" class="hidden">
+      <div class="dish" id="gift"></div>
+    </div>
+  </section>
+
   <footer>
-    Fortschritt wird automatisch in diesem Browser gespeichert. Daten: Rekrutierungs-Guides von RPG Site &amp; Keen Gamer · Gasthaus: <a href="https://fortunesweave.co.uk/wiki/meals" target="_blank" rel="noopener">fortunesweave.co.uk</a> (auf Dietrichs Pfad erfasst), abgeglichen mit <a href="https://polyterpe.github.io/FEFWmeals/" target="_blank" rel="noopener">FEFW Meal Guide</a> · Bilder: <a href="https://fireemblemwiki.org/" target="_blank" rel="noopener">Fire Emblem Wiki</a>
+    Fortschritt wird automatisch in diesem Browser gespeichert. Daten: Rekrutierungs-Guides von RPG Site &amp; Keen Gamer · Gasthaus: <a href="https://fortunesweave.co.uk/wiki/meals" target="_blank" rel="noopener">fortunesweave.co.uk</a> (auf Dietrichs Pfad erfasst), abgeglichen mit <a href="https://polyterpe.github.io/FEFWmeals/" target="_blank" rel="noopener">FEFW Meal Guide</a> · Geschenke: <a href="https://fortunesweave.co.uk/wiki/gifts" target="_blank" rel="noopener">fortunesweave.co.uk</a> ·Bilder: <a href="https://fireemblemwiki.org/" target="_blank" rel="noopener">Fire Emblem Wiki</a>
   </footer>
 </div>
 
@@ -564,6 +595,73 @@ DISHES.forEach((d, i) => {
   d.neutral.forEach(n => INN[n].neutral.push(i));
 });
 
+// Geschenke: pro Charakter [liebt, mag] als Indizes in GIFT_NAMES – alle anderen: kein Bonus
+// Quelle: fortunesweave.co.uk/wiki/gifts (Stand Nov. 2026, 61 Charaktere inkl. Lords)
+const GIFT_NAMES = ["Ahm Lu Cloth", "Alecto Garum", "Antique Medal", "Aromatic Shosh", "Arrowhead Gem", "Blue-Rose Bouquet", "Board-Game Tactics", "Brined Fish Guts", "Candy Crystals", "Ceremonial Spear", "Coffee Pastries", "Common Coffee", "Concentrated Garum", "Crafting Knives", "Crimson Bull Figure", "Crimson Ghosh", "Dagda Beard Grass", "Decorative Arrows", "Divination Bagua", "Dual Fish Knives", "Eastern Black Silk", "Eastern Board Game", "Eastern Board Games", "Eastern Earrings", "Eastern Love Story", "Eastern Tea Leaves", "Ebony Board Game", "Ebony Game Board", "Energizing Ghosh", "Everyday Scenes", "Exquisite Ring", "Flexible Fishing Rod", "Flower Painting", "Fodlan Tea", "Fragrant Pastries", "Full Sewing Kit", "Garum", "Gaudy Bangle", "Ginji Cervi", "Herbal Recipe Guide", "History of a Master", "Home-Recipe Book", "Honey Milk", "Honey Pastries", "Horse-Grooming Kit", "Huge Fish Eyeball", "Imitation Medal", "Jade Ghosh", "Jade Panther Figure", "Jamel Milk", "Joint-Relief Gloves", "Kitten Figurine", "Legendary Garum", "Light Shosh", "Magic-Trick Set", "Mane Ornament", "Mature Dried Cervi", "Mature Ghosh", "Mature Shosh", "Meaty Delicacy", "Mellow Pastries", "Morfis Almanac", "Morfis Tea", "Niiza Garum", "Odd Vegetable Seeds", "Orgus Coffee", "Outdoor Cooking Set", "Pack of Pastels", "Pastry Cookbook", "Pegasus Panorama", "Pickled Bulbs", "Pickled Vegetables", "Poems of the Greats", "Portrait of Yu Phas", "Potted Vegetables", "Protection Figurine", "Pure-White Cervi", "Rancid Garum", "Rare Southern Seeds", "Rare Spices", "Red Hair Clip", "Rugged Blade", "Rustic Ghosh", "Saraminian Sweets", "School Scandal", "Secret Ghosh", "Select Coffee", "Sharp Dagger", "Sharp Fishhook", "Shield Portrait", "Simple Pastries", "Skin Balm", "Smooth Garum", "Solomon Coffee", "Southern Coffee", "Southern Ghosh", "Special “Medicine”", "Spirit Board Game", "Strategy Manuscript", "Strong Cervi", "Strong Seasonings", "Sturdy Rucksack", "Sun Ghosh", "Tales of Adventure", "Tales of the Arena", "The Knight's Suitors", "The Knight’s Suitors", "The Works of Dante", "Thick Foreign Tome", "Tome from Away", "Trader's Handbook", "Training Bracelet", "Training Pillar", "Training Weights", "Village Recipes", "Volcano Ghosh", "Weak Cervi", "Wing Fletching", "Yarc Milk", "Young Ghosh", "Young Shosh"];
+const GIFTS = {
+ "Alexandra": ["0,4,5,9,17,19,20,23,32,36,51,69,73,80,89,98,103", "1,3,13,14,15,16,18,30,37,39,41,44,48,50,55,62,63,66,67,68,75,87,88,91,92,95,96,97,100,101,107,111,114,115,117"],
+ "Anatolia": ["40,54,61,103", "0,8,20,25,75,109"],
+ "Aswan": ["", "35,67,107"],
+ "Benditz": ["4,5,17,20,23,25,26,73,77,80,98,103", "0,2,3,9,10,11,15,24,30,32,37,39,41,44,50,62,65,67,69,86,88,89,94,95,96,97,101,115,117"],
+ "Bertrand": ["1,19,27,52,77,98", "0,12,36,61,92,101,103,109,111"],
+ "Bonaventure": ["15,36,98,110,115", "9,20,41,47,57,68,79,85,100,102,104,107,108,114,119"],
+ "Buccar": ["15,19,36,52,57,69,73,77,89,96,115", "4,25,28,32,41,53,58,63,66,67,79,82,114,119,120"],
+ "Cai": ["69,73,77", "4,15,32,67,80,88,89"],
+ "Catania": ["0,4,5,17,20,23,25,32,69,73,80,103", "9,10,11,13,14,15,16,18,19,30,37,44,48,50,51,54,55,65,67,86,87,89,91,94,96,97,107"],
+ "Centurio": ["9,21,40,57,69,73,77,84,89,98", "2,6,97,104,110,112,113,114"],
+ "Creek": ["40", "87,107"],
+ "Dadao": ["49,51,72,73,81,98,103,116", "4,5,6,10,15,20,32,34,38,42,43,45,56,60,68,74,76,79,83,85,90,99,118"],
+ "Dante": ["0,17,32,40,61,72,73,77,84,103,109,110", "4,5,9,10,11,13,14,15,18,19,20,29,30,39,41,44,48,49,50,51,54,62,67,69,80,86,87,88,89,91,94,95,97,101,104,107,115"],
+ "Diego": ["4,17,73,117", "15,39,50,75,79,87,112,113"],
+ "Dietrich": ["90", "4,5,6,15,38,42,43,45,50,51,68,75,76,97,112,113"],
+ "Esmeralda": ["23,31,36,83,88,103,116", "0,1,4,5,9,10,16,19,20,25,30,32,34,37,39,41,44,45,51,60,68,73,80,90,91,92,100,109,111,114,115"],
+ "Fabio": ["90,103,115", "3,7,10,11,16,20,25,45,47,53,57,58,65,67,74,82,85,86,94,95,102,119"],
+ "Fianna": ["4,5,20,32,73,79,115", "11,15,50,62,69,86,89,91,94"],
+ "Gaitz": ["0,9,17,20,22,26,32,40,61,69,73,77,81,84,89,103,109", "3,4,5,6,10,11,13,14,15,16,18,19,30,33,39,41,44,46,47,48,50,55,62,65,67,75,78,80,86,87,88,91,94,95,96,97,101,106,107,108,112,113,115"],
+ "Goliath": ["15,57,58,77,90,96,98,115", "3,5,25,33,39,41,47,51,53,62,65,75,78,82,85,95,101,102,111,117,119"],
+ "Guzran": ["15,57,89,98,103,115", "3,5,11,25,45,47,53,58,65,82,85,86,94,95,100,102,117,119,120"],
+ "Halvin": ["5,20,23,32,36,51,74,79,80,83", "15,25,30,34,37,48,54,60,67,90,91,95,114"],
+ "Hong Hua": ["33,40,73", "0,8,10,11,32,54,56,60,61,65,86,94,99,109,116"],
+ "Inyoni": ["98,103", "20,25,45,88,101,111,117"],
+ "Io": ["9,16,51,69,73,89", "4,6,11,15,32,44,50,55,75,97,101,112,113"],
+ "Jasmine": ["2,8,9,14,15,36,38,39,40,41,42,44,48,49,51,55,56,60,64,66,67,68,72,73,74,75,79,83,90,92,98,99,113,114,116,117,118,119", "4,17,19,24,26,33,43,50,54,59,63,76,85,88,91,95,101,104,107,110,112,115"],
+ "Jester": ["4,19,36,52,73", "3,6,11,15,39,41,45,47,50,65,66,68,79,85,86,94,95,97,100,115"],
+ "Kiroc": ["4,15,31,57,79,115", "11,50,53,58,82,86,88,94,112,113,119,120"],
+ "Leda": ["4,15,20,23,32,47,73,103,115", "0,3,7,16,25,37,44,45,51,53,54,57,58,67,82,85,95,102,111,119"],
+ "Lilian": ["23,25,72,98,103", "37,39,41,68,100,110,111,114,117"],
+ "Loretta": ["9,43,68,73,81,83,89", "4,5,15,17,20,26,32,38,42,50,60,69,76,90,112,113"],
+ "Ludia": ["20,23,24,25,32,69,72,73,80,98,103", "3,10,11,29,37,39,41,54,65,67,68,86,88,91,94,101,110,111,114,119"],
+ "Lysander": ["9,32,69,73,89", "16,25,44,55,113,117"],
+ "Majide": ["4,15,19,57", "50,53,58,82,112,113,115,119,120"],
+ "Mikaela": ["36,90,103,115,119", "1,3,11,25,39,41,45,47,53,57,58,65,68,79,82,85,86,94,95,100,102,114,117"],
+ "Mu": ["8,36,40,51,73,83,103,116", "4,43,49,61,65,66,69,71,76,78,89,109,118"],
+ "Nathan": ["40", "85,87,102"],
+ "Nezha": ["4,9,17,70,73,89,98,103", "5,25,32,46,50,69,79,80,101,111,117"],
+ "Ninae": ["20,73,98,103", "0,4,5,15,17,25,26,30,32,61,67,69,72,79,80,84,89,97,108,109"],
+ "Noctula": ["98,103", "5,25,45,75,101,111,117"],
+ "Nuzzuo": ["4,19", "11,15,50,51,63,66,71,75,86,88,101,111,112,113"],
+ "Nydine": ["83,98,103", "24,25,51,88,101,111,113,114,117"],
+ "Olympia": ["4,5,20,23,25,32,40,65,69,73,80,89,103", "10,11,30,37,67,86,91,94"],
+ "Orchel": ["5,19,32,36,40,69,72,73,83,84,89,90", "14,30,39,41,44,48,51,66,100,103,104,105,107,110,114"],
+ "Peppe": ["4,69,73,77,89,90", "6,11,15,50,51,54,66,67,68,75,88,97,101,107,112,113"],
+ "Peter": ["4,8,17,40,73,83,99", "9,10,16,25,32,34,38,43,49,51,56,60,68,79,90,116,117,118"],
+ "Seteth": ["61,72,73,88,98,103", "9,11,15,20,25,29,31,32,39,41,45,65,68,86,89,94,101,110,114,119"],
+ "Sha Lan": ["5,36,51,73,79,96", "11,28,63,66,68,86"],
+ "Simon": ["9,40,73,77,89", "4,15,19,26,30,32,45,50,71,75,88,93"],
+ "Sirocco": ["4,15,32,34,40,72,73,89,103,115,119", "14,24,47,48,50,51,53,57,58,67,82,91,109,120"],
+ "Sofia": ["5,19,36,42,115", "4,11,15,38,43,49,51,54,63,66,67,68,71,75,76,88,118"],
+ "Tahonia": ["40", "35,107"],
+ "Talimun": ["5,15,32,40,73,79,90,95,115,119", "4,9,14,30,48,85"],
+ "Theodora": ["", "16,20,25,44"],
+ "Tialla": ["5,19,21,22,26,27,32,36,40,56,61,62,73,84,103,109,110,116", "0,1,4,6,9,12,13,17,18,20,24,25,29,30,38,39,41,44,49,50,63,66,67,68,69,70,72,74,75,76,80,87,88,89,91,92,93,97,98,99,100,101,104,105,106,107,108,114,118"],
+ "Tobias": ["36,98,102,103,115", "1,16,20,25,39,41,44,45,47,51,57,58,68,82,85,88,92,95,100,101,111,114,117,119"],
+ "Troy": ["40,61,73,77", "0,6,8,32,33,54,56,97,99,109,116"],
+ "Ultand": ["5,19,36,40,52,73,77,85,103,114", "0,3,4,8,9,12,13,15,17,18,20,22,24,26,30,32,33,35,39,41,44,46,47,50,61,62,63,65,66,67,68,69,78,80,81,84,87,88,89,91,95,96,97,100,101,106,107,108,109,112,115"],
+ "Ursula": ["32,40,69,73,89", "0,4,5,10,11,15,20,24,26,51,55,65,67,86,94"],
+ "Yang Jie": ["25,51,72,98,103,115", "3,5,10,11,31,39,41,45,47,53,57,58,65,68,82,85,86,88,94,95,102,107,110,114,119"],
+ "Zarcone": ["25,85", "23,37,39,70,74,98,103,117"]
+};
+
 const KEY = "fe-fortunes-weave-rekrutierung-v1";
 let state = {};
 try { state = JSON.parse(localStorage.getItem(KEY)) || {}; } catch(e) { state = {}; }
@@ -627,6 +725,15 @@ const portrait = n => (IMG[n] || LORD_IMG[n])
 const dishName = i => `${DISHES[i].ico} ${DISHES[i].en}`;
 const innLine = n => !INN[n] ? "" : `<div class="detail-inn"><b>Gasthaus</b>liebt: ${
   esc(INN[n].love.map(dishName).join(", ") || "nichts Bestimmtes")}<a href="#gasthaus" data-inn="${esc(n)}">alle Vorlieben →</a></div>`;
+// Geschenke: GIFT[n] = {love:[Index…], like:[…]}, WHO[i] = {love:[Name…], like:[…]}
+const ids = s => s ? s.split(",").map(Number) : [];
+const GIFT = {}, WHO = GIFT_NAMES.map(() => ({love:[], like:[]}));
+Object.entries(GIFTS).forEach(([n, [lo, li]]) => {
+  GIFT[n] = {love:ids(lo), like:ids(li)};
+  ["love","like"].forEach(lv => GIFT[n][lv].forEach(i => WHO[i][lv].push(n)));
+});
+const giftLine = n => !GIFT[n] ? "" : `<div class="detail-inn"><b>Geschenke</b>liebt: ${
+  esc(GIFT[n].love.map(i => GIFT_NAMES[i]).join(", ") || "nichts Bestimmtes")}<a href="#geschenke" data-gift="${esc(n)}">alle →</a></div>`;
 
 // Kopf
 const head = document.getElementById("head");
@@ -677,7 +784,7 @@ DATA.forEach((c, i) => {
   dt.innerHTML = `<td colspan="5"><div class="detail-box">${
     c.group === 2 ? `<div>${esc(c.req[0])}</div>` :
     LORDS.map((l, j) => `<div><b style="color:${l.color}">${l.name}</b>${c.req[j] ? reqList(c.req[j], l.name) : "<p><i>auf diesem Pfad nicht rekrutierbar</i></p>"}</div>`).join("")
-  }${innLine(c.name)}</div></td>`;
+  }${innLine(c.name)}${giftLine(c.name)}</div></td>`;
   body.appendChild(dt);
 });
 
@@ -685,6 +792,8 @@ DATA.forEach((c, i) => {
 body.addEventListener("click", e => {
   const a = e.target.closest("[data-inn]");
   if (a) { e.preventDefault(); showChar(a.dataset.inn); return; }
+  const g = e.target.closest("[data-gift]");
+  if (g) { e.preventDefault(); showGiftChar(g.dataset.gift); return; }
   const b = e.target.closest(".cell");
   if (b) {
     state[b.dataset.k] ? delete state[b.dataset.k] : state[b.dataset.k] = 1;
@@ -846,15 +955,77 @@ document.getElementById("view-inn").addEventListener("click", e => {
   if (p) showChar(p.dataset.n);
 });
 
-// Ansicht Rekrutierung / Gasthaus (über #gasthaus in der Adresse)
+// ---------- Geschenke ----------
+const G_LV = [["love","♥♥","Liebt"], ["like","♥","Mag"]];
+const gchip = i => `<button class="gchip" data-g="${i}" title="Wer mag ${esc(GIFT_NAMES[i])}?">${esc(GIFT_NAMES[i])}</button>`;
+const G_ORDER = [...LORDS.map(l => l.name).filter(n => GIFT[n]),
+  ...Object.keys(GIFT).filter(n => !lordOf(n)).sort((a, b) => a.localeCompare(b, "de"))];
+const ggrid = document.getElementById("ggrid");
+ggrid.innerHTML = G_ORDER.map(n => {
+  const c = GIFT[n], l = lordOf(n);
+  return `<article class="icard${l ? " lordcard" : ""}" data-name="${esc(n)}" ${l ? `style="--c:${l.color}"` : ""}>
+    <div class="ihead"><div class="pt">${portrait(n)}</div><div><span class="nm">${esc(n)}</span>
+      <span class="hint">${l ? "Lord · " : ""}${c.love.length} geliebte, ${c.like.length} gemochte Geschenke</span></div></div>
+    ${G_LV.map(([lv, ic, lab]) => `<div class="irow ${lv}"><b>${ic} ${lab}</b><div class="chips">${
+      c[lv].length ? c[lv].map(gchip).join("") : `<span class="none">–</span>`}</div></div>`).join("")}
+  </article>`;
+}).join("");
+const gMissing = DATA.map(c => c.name).filter(n => !GIFT[n]);
+document.getElementById("gift-missing").textContent = (gMissing.length ? `Noch keine Daten für: ${gMissing.join(", ")}. ` : "") +
+  "Einige Angaben stammen nur aus einer Quelle und sind noch unbestätigt.";
+
+const gq = document.getElementById("gq");
+function filterGift() {
+  const q = gq.value.trim().toLowerCase();
+  let n = 0;
+  ggrid.querySelectorAll(".icard").forEach(c => {
+    const show = !q || c.dataset.name.toLowerCase().includes(q);
+    c.classList.toggle("hidden", !show); n += show;
+  });
+  document.getElementById("gift-empty").classList.toggle("hidden", n > 0);
+}
+gq.oninput = filterGift;
+
+// Nach Geschenk (Auswahlliste, alphabetisch; nur Geschenke, die jemand liebt oder mag)
+const gsel = document.getElementById("gsel");
+gsel.innerHTML = GIFT_NAMES.map((g, i) => `<option value="${i}">${esc(g)} (${WHO[i].love.length + WHO[i].like.length})</option>`).join("");
+function renderGift() {
+  const i = +gsel.value, w = WHO[i];
+  document.getElementById("gift").innerHTML = `
+    <div class="dhead"><div class="dico">🎁</div><div><h2>${esc(GIFT_NAMES[i])}</h2><span>${w.love.length + w.like.length} Personen freuen sich</span></div></div>
+    ${G_LV.map(([lv, ic, lab]) => w[lv].length ? `<section class="dgrp ${lv}"><h3>${ic} ${lab}<small>${w[lv].length}</small></h3>
+      <div class="people">${w[lv].slice().sort((a, b) => a.localeCompare(b, "de")).map(n => pchip(n, "")).join("")}</div></section>` : "").join("")}`;
+}
+gsel.onchange = renderGift;
+
+function setGiftMode(m) {
+  document.querySelectorAll("#view-gift .seg button").forEach(b => b.setAttribute("aria-pressed", b.dataset.g === m));
+  document.getElementById("gift-chars").classList.toggle("hidden", m !== "chars");
+  document.getElementById("gift-gifts").classList.toggle("hidden", m !== "gifts");
+  gq.classList.toggle("hidden", m !== "chars");
+  gsel.classList.toggle("hidden", m !== "gifts");
+  if (m === "gifts") renderGift();
+}
+document.querySelectorAll("#view-gift .seg button").forEach(b => b.onclick = () => setGiftMode(b.dataset.g));
+function showGiftChar(n) { go("gift"); setGiftMode("chars"); gq.value = n; filterGift(); innTop(); }
+document.getElementById("view-gift").addEventListener("click", e => {
+  const g = e.target.closest(".gchip");
+  if (g) { go("gift"); gsel.value = g.dataset.g; setGiftMode("gifts"); innTop(); return; }
+  const p = e.target.closest("[data-n]");
+  if (p) showGiftChar(p.dataset.n);
+});
+
+// Ansicht Rekrutierung / Gasthaus / Geschenke (über #gasthaus bzw. #geschenke in der Adresse)
 const HEADS = {
   rek: ["Rekrutierungs-Chronik", "Wer folgt welchem Flammenlord? Tippe auf eine Raute zum Abhaken – auf einen Namen für die Bedingungen."],
   inn: ["Gasthaus-Tafel", "Wer isst was am liebsten? Tippe auf ein Gericht oder einen Namen, um die Seite zu wechseln."],
+  gift: ["Geschenk-Kammer", "Womit macht man wem eine Freude? Tippe auf ein Geschenk oder einen Namen, um die Seite zu wechseln."],
 };
+const HASH = {rek:"#rekrutierung", inn:"#gasthaus", gift:"#geschenke"};
 let view = null;
-const route = () => setView(location.hash.startsWith("#gasthaus") ? "inn" : "rek");
+const route = () => setView(location.hash.startsWith("#gasthaus") ? "inn" : location.hash.startsWith("#geschenke") ? "gift" : "rek");
 function go(v) {
-  const h = v === "inn" ? "#gasthaus" : "#rekrutierung";
+  const h = HASH[v];
   try { if (location.hash !== h) history.pushState(null, "", h); } catch(e) {}
   setView(v);
 }
@@ -865,6 +1036,7 @@ function setView(v) {
   view = v;
   document.getElementById("view-rek").classList.toggle("hidden", v !== "rek");
   document.getElementById("view-inn").classList.toggle("hidden", v !== "inn");
+  document.getElementById("view-gift").classList.toggle("hidden", v !== "gift");
   document.querySelectorAll(".tabs a").forEach(a => a.dataset.view === v ? a.setAttribute("aria-current", "page") : a.removeAttribute("aria-current"));
   document.getElementById("title").textContent = HEADS[v][0];
   document.getElementById("subtitle").textContent = HEADS[v][1];
