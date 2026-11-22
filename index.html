@@ -312,8 +312,8 @@ footer a{color:var(--gold-dim)}
   <div class="toolbar">
     <div class="seg" role="group" aria-label="Filter">
       <button data-f="all" aria-pressed="true">Alle</button>
-      <button data-f="open" aria-pressed="false">Offen</button>
-      <button data-f="done" aria-pressed="false">Erledigt</button>
+      <button data-f="open" aria-pressed="false" title="Auf noch keinem Pfad rekrutiert">Offen</button>
+      <button data-f="done" aria-pressed="false" title="Auf mindestens einem Pfad rekrutiert">Erledigt</button>
     </div>
     <input type="search" id="q" placeholder="Name suchen …">
     <div class="actions">
@@ -840,7 +840,7 @@ function refresh() {
     });
     tr.classList.toggle("complete", got === all);
     const show = (!q || c.name.toLowerCase().includes(q)) &&
-      (filter === "all" || (filter === "open" ? got < all : got > 0));
+      (filter === "all" || (filter === "open" ? got === 0 : got > 0));
     tr.classList.toggle("hidden", !show);
     if (!show) body.querySelector(`tr.detail[data-for="${i}"]`).classList.add("hidden");
     if (show) visibleGroups.add(c.group);
